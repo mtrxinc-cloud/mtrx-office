@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MTRX OFFICE</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="home">
+<div id="upd" hidden></div>
+<section id="home">
+  <div class="home-logo" role="img" aria-label="MTRX logo"></div>
+    <div class="home-brand">MTRX <b>OFFICE</b></div>
+  <p class="home-sub">Choose an app</p>
+  <div class="apps">
+    <button class="app-card" id="app-writer"><span class="app-ico">W</span><b>Writer</b><small>Documents &rarr; Word (.docx), PDF</small></button>
+    <button class="app-card" id="app-pdf"><span class="app-ico">P</span><b>PDF</b><small>Read, annotate, edit</small></button>
+    <button class="app-card" id="app-sheets"><span class="app-ico">S</span><b>Sheets</b><small>Spreadsheets and formulas</small></button>
+    <div class="app-card soon"><span class="app-ico">L</span><b>Slides</b><small>Coming soon</small></div>
+  </div>
+  <footer class="home-foot">MTRXCO&trade; &middot; 2026</footer>
+</section>
+
+<header class="top">
+  <button class="btn" id="btn-home" title="Back to MTRX OFFICE">&#8962; Home</button>
+  <div class="brand">MTRX Office <b>Writer</b></div>
+  <input id="title" class="doc-title" value="Untitled document" spellcheck="false">
+  <div class="spacer"></div>
+  <button class="btn" id="btn-help" title="Keyboard shortcuts">Shortcuts</button>
+  <button class="btn" id="btn-open" title="Open a Word (.docx), PDF or old .mtrx file">Open</button>
+  <button class="btn" id="btn-pdf" title="Export a PDF file">Export PDF</button>
+  <button class="btn primary" id="btn-export" title="Save as a Microsoft Word file (.docx)">Save (.docx)</button>
+</header>
+
+<nav class="tabs" id="tabs" role="tablist" aria-label="Ribbon">
+  <button role="tab" data-tab="home" class="on" aria-selected="true">Home</button>
+  <button role="tab" data-tab="insert" aria-selected="false">Insert</button>
+  <button role="tab" data-tab="layout" aria-selected="false">Layout</button>
+  <button role="tab" data-tab="help" aria-selected="false">Help</button>
+</nav>
+
+<div class="ribbon" id="ribbon" data-tab="home">
+  <div class="group" data-p="home">
+    <button data-cmd="undo" title="Undo"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/></svg></button>
+    <button data-cmd="redo" title="Redo"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 000 12h3"/></svg></button>
+  </div>
+  <div class="group" data-p="home">
+    <select id="sel-block" title="Style">
+      <option value="p">Normal</option>
+      <option value="h1">Heading 1</option>
+      <option value="h2">Heading 2</option>
+      <option value="h3">Heading 3</option>
+    </select>
+    <select id="sel-font" title="Font">
+      <option>Calibri</option><option>Arial</option><option>Times New Roman</option>
+      <option>Georgia</option><option>Verdana</option><option>Courier New</option>
+    </select>
+    <select id="sel-size" title="Size (pt)">
+      <option>8</option><option>9</option><option>10</option><option selected>11</option>
+      <option>12</option><option>14</option><option>16</option><option>18</option>
+      <option>24</option><option>36</option>
+    </select>
+  </div>
+  <div class="group" data-p="home">
+    <button data-cmd="bold" title="Bold"><b>B</b></button>
+    <button data-cmd="italic" title="Italic"><i>I</i></button>
+    <button data-cmd="underline" title="Underline"><u>U</u></button>
+    <button data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+    <label class="color" title="Text colour">A<input type="color" id="col-text" value="#000000"></label>
+    <label class="color hl" title="Highlight"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h7"/><path d="M14.5 5.5l4 4L10 18l-5 1 1-5z"/><path d="M13 7l4 4"/></svg><input type="color" id="col-hl" value="#ffff00"></label>
+  </div>
+  <div class="group" data-p="home">
+    <button data-cmd="justifyLeft" title="Align left"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 10h10M4 14h16M4 18h10"/></svg></button>
+    <button data-cmd="justifyCenter" title="Center"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M7 10h10M4 14h16M7 18h10"/></svg></button>
+    <button data-cmd="justifyRight" title="Align right"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M10 10h10M4 14h16M10 18h10"/></svg></button>
+    <button data-cmd="justifyFull" title="Justify"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg></button>
+  </div>
+  <div class="group" data-p="home">
+    <button data-cmd="insertUnorderedList" title="Bullets"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="7" r="1.2"/><circle cx="5" cy="12" r="1.2"/><circle cx="5" cy="17" r="1.2"/><path d="M10 7h10M10 12h10M10 17h10"/></svg></button>
+    <button data-cmd="insertOrderedList" title="Numbering"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.8l1.6-1.2V10" stroke-width="1.4"/><path d="M4 14.2c.3-1.5 3.2-1.5 3.2 0 0 1.2-3.2 2.2-3.2 3.6h3.2" stroke-width="1.4"/><path d="M11 8h9M11 16h9"/></svg></button>
+  </div>
+  <div class="group" data-p="home">
+    <button id="btn-find" title="Find and replace (Ctrl+F)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg></button>
+    <select id="sel-case" title="Change case"><option value="">Aa</option><option value="upper">UPPERCASE</option><option value="lower">lowercase</option><option value="title">Title Case</option><option value="sentence">Sentence case</option></select>
+    <button id="fmt-clear" title="Clear formatting"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5h10M10 5l-3 14M14 19h5"/><path d="M16 12l5 5M21 12l-5 5"/></svg></button>
+  </div>
+  <div class="group" data-p="insert">
+    <button id="ins-table" class="big" title="Insert a table"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 10h17M3.5 14.5h17M9.5 5v14M15 5v14"/></svg><span>Table</span></button>
+    <button id="ins-chart" class="big" title="Insert a chart"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="5.5" y="11" width="3" height="7" rx=".7"/><rect x="10.5" y="6" width="3" height="12" rx=".7"/><rect x="15.5" y="13" width="3" height="5" rx=".7"/></svg><span>Chart</span></button>
+    <button id="ins-image" class="big" title="Insert an image"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5.5-5 4 3.5 3-2.5 3.5 3.5"/></svg><span>Image</span></button>
+    <button id="ins-shape" class="big" title="Insert a shape"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="14.5" r="5"/><path d="M15.5 4l4.5 8h-9z"/></svg><span>Shape</span></button>
+  </div>
+  <div class="group" data-p="insert">
+    <button id="ins-break" class="big" title="Start a new page"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11V4.5h10V11"/><path d="M7 13v6.5h10V13"/><path d="M3 12h2M9 12h2M13 12h2M19 12h2"/></svg><span>Page break</span></button>
+    <button id="ins-footnote" class="big" title="Insert a footnote"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17h10M4 12h14"/><path d="M17.5 4.2l1.4-.9V9" stroke-width="1.5"/><path d="M4 7h8"/></svg><span>Footnote</span></button>
+  </div>
+  <div class="group" data-p="insert">
+    <button id="ins-cite" class="big" title="Citations and bibliography"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18c0-5 1-8 4-9.5M5 18h4v-4H5M15 18c0-5 1-8 4-9.5M15 18h4v-4h-4"/></svg><span>Cite</span></button>
+  </div>
+  <div class="group" data-p="insert">
+    <button id="ins-sym" class="big" title="Insert a symbol"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 19c3 0 3-3 3-6V7a3 3 0 016 0M5 13h8M15 19h4M17 17v4" /></svg><span>Symbol</span></button>
+    <button id="ins-date" class="big" title="Insert today's date"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>Date</span></button>
+  </div>
+  <div class="group" data-p="layout">
+    <button id="page-setup" class="big" title="Page size, margins, header and footer"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 7h7M8.5 11h7" stroke-dasharray="1.5 2.5"/><path d="M8.5 7v10M15.5 7v10" opacity=".35"/></svg><span>Page setup</span></button>
+  </div>
+  <div class="group" data-p="help">
+    <button id="help-online" class="big" title="Open the MTRX help website"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1-1.5 2"/><path d="M12 17h.01"/></svg> Help</button>
+    <button id="help-support" class="big" title="Contact support (coming soon)"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/><path d="M4 12v-1a8 8 0 0116 0v1"/></svg> Contact Support</button>
+    <button id="help-feedback" class="big" title="Send feedback (coming soon)"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v12H9l-5 4z"/></svg> Feedback</button>
+  </div>
+  <div class="group" data-p="all" id="table-tools" hidden>
+    <button id="t-addrow">+ Row</button>
+    <button id="t-addcol">+ Col</button>
+    <button id="t-delrow">− Row</button>
+    <button id="t-delcol">− Col</button>
+    <button id="t-deltable">✕ Table</button>
+  </div>
+</div>
+
+<main class="desk" id="desk">
+ <div class="zoomwrap" id="zoomwrap">
+  <div class="sheet" id="sheet">
+    <div class="page" id="editor" contenteditable="true" spellcheck="true"><p><br></p></div>
+    <ol class="fnlist" id="fn-list" hidden></ol>
+  </div>
+ </div>
+</main>
+
+<footer class="status">
+  <span id="count">0 words</span>
+  <span class="spacer"></span>
+  <span id="msg"></span>
+  <span class="zoom" id="zoom" role="group" aria-label="Zoom">
+    <button type="button" id="z-out" title="Zoom out (Ctrl+-)" aria-label="Zoom out">&minus;</button>
+    <button type="button" id="z-val" title="Reset to 100% (Ctrl+0)">100%</button>
+    <button type="button" id="z-in" title="Zoom in (Ctrl+=)" aria-label="Zoom in">+</button>
+    <button type="button" id="z-fit" title="Fit page width">Fit</button>
+  </span>
+  <span id="ver"></span>
+</footer>
+
+<section id="pdfapp">
+  <div class="top">
+    <button class="btn" id="pdf-home" title="Back to MTRX OFFICE">&#8962; Home</button>
+    <div class="brand">MTRX Office <b>PDF</b></div>
+    <span id="pdf-name" class="pdf-name">No file open</span>
+    <div class="spacer"></div>
+    <button class="btn" id="pdf-open" title="Open a PDF (Ctrl+O)">Open</button>
+    <button class="btn" id="pdf-towriter" title="Copy only the text of this PDF into a new Writer document (layout, tables and images are not carried over)">Convert to Writer</button>
+    <button class="btn primary" id="pdf-save" title="Save the PDF with your changes (Ctrl+S)">Save PDF</button>
+  </div>
+  <div class="ribbon" id="pdf-tools">
+    <div class="group">
+      <button data-tool="select" class="big on" title="Select and move (V)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l12 8.5-5.3 1.2 3 5.6-2.3 1.2-3-5.6L6 18z"/></svg><span>Select</span></button>
+      <button data-tool="edit" class="big" title="Edit the PDF's own text in place (E)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h12v2M10 5v9"/><path d="M14.5 20l1-4 5-5 3 3-5 5z" transform="translate(-3 0)"/></svg><span>Edit text</span></button>
+      <button data-tool="text" class="big" title="Add text (T)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6V4.5h14V6M12 4.5V20M9 20h6"/></svg><span>Text</span></button>
+      <button data-tool="highlight" class="big" title="Highlight an area (H)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h7"/><path d="M14.5 5.5l4 4L10 18l-5 1 1-5z"/><path d="M13 7l4 4"/></svg><span>Highlight</span></button>
+      <button data-tool="draw" class="big" title="Draw freehand (D)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1-4.5L16.5 4a2.1 2.1 0 013 3L8 18.5z"/><path d="M14.5 6l3 3"/></svg><span>Draw</span></button>
+      <button id="pdf-image" class="big" title="Add an image or signature (I)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5.5-5 4 3.5 3-2.5 3.5 3.5"/></svg><span>Image</span></button>
+    </div>
+    <div class="group">
+      <label class="color" title="Annotation colour">A<input type="color" id="pdf-color" value="#c00000"></label>
+      <select id="pdf-size" title="Text size / pen width">
+        <option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option selected>14</option><option>16</option><option>18</option><option>20</option><option>24</option><option>28</option><option>32</option><option>36</option><option>48</option><option>60</option><option>72</option>
+      </select>
+      <button id="pdf-bigger" title="Make the selected item bigger"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l5-12 5 12M6 14h6"/><path d="M18 5v6M15 8h6"/></svg></button>
+      <button id="pdf-smaller" title="Make the selected item smaller"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l5-12 5 12M6 14h6"/><path d="M15 8h6"/></svg></button>
+      <button id="pdf-delete" class="big" title="Delete the selected item (Delete)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14M10 7V4.5h4V7M7 7l1 12.5h8L17 7M10.5 11v5M13.5 11v5"/></svg><span>Delete</span></button>
+      <button id="pdf-undo" class="big" title="Undo last annotation (Ctrl+Z)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/></svg><span>Undo</span></button>
+    </div>
+    <div class="group">
+      <button id="pdf-zoomout" title="Zoom out"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5M8 11h6"/></svg></button>
+      <span id="pdf-zoom" class="pdf-zoom">100%</span>
+      <button id="pdf-zoomin" title="Zoom in"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5M8 11h6M11 8v6"/></svg></button>
+      <button id="pdf-fit" class="big" title="Fit page width"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Fit width</span></button>
+    </div>
+    <div class="group">
+      <button id="pdf-rotate" class="big" title="Rotate the current page"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 11-2.6-5.9"/><path d="M20 4v5h-5"/></svg><span>Rotate</span></button>
+      <button id="pdf-delpage" class="big" title="Remove the current page from the saved PDF"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5v4h4"/><path d="M9.8 12.5l4.4 4.4M14.2 12.5l-4.4 4.4"/></svg><span>Delete page</span></button>
+      <button id="pdf-merge" class="big" title="Merge PDFs, or extract pages into a new file"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="8" height="10" rx="1.5"/><rect x="12.5" y="10" width="8" height="10" rx="1.5"/></svg><span>Merge / split</span></button>
+      <button id="pdf-cards" class="big" title="Turn your highlights into flashcards to study"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="14" height="11" rx="2"/><path d="M7 7V5.5A1.5 1.5 0 018.5 4H19a2 2 0 012 2v8a2 2 0 01-2 2h-2"/></svg><span>Flashcards</span></button>
+    </div>
+  </div>
+  <div id="pdf-pages" class="pdf-pages"><p class="pdf-empty">Open a PDF to read and annotate it.</p></div>
+  <div class="status"><span id="pdf-status">&nbsp;</span><span class="spacer"></span><span id="pdf-msg"></span></div>
+</section>
+
+<section id="sheetsapp">
+  <div class="top">
+    <button class="btn" id="sh-home" title="Back to MTRX OFFICE">&#8962; Home</button>
+    <div class="brand">MTRX Office <b>Sheets</b></div>
+    <span id="sh-title" class="pdf-name">Untitled sheet</span>
+    <div class="spacer"></div>
+    <button class="btn" id="sh-new" title="Start a new empty sheet">New</button>
+    <button class="btn" id="sh-open" title="Open an Excel (.xlsx) or CSV file (Ctrl+O)">Open</button>
+    <button class="btn" id="sh-save" title="Save (Ctrl+S)">Save</button>
+  </div>
+  <nav class="tabs" id="sh-ribtabs" role="tablist" aria-label="Sheets ribbon">
+    <button role="tab" data-stab="home" class="on" aria-selected="true">Home</button>
+    <button role="tab" data-stab="insert" aria-selected="false">Insert</button>
+    <button role="tab" data-stab="data" aria-selected="false">Data</button>
+  </nav>
+  <div class="ribbon" id="sh-tools" data-stab="home">
+    <div class="group" data-p="edit">
+      <button id="sh-undo" class="big" title="Undo (Ctrl+Z)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/></svg><span>Undo</span></button>
+      <button id="sh-redo" class="big" title="Redo (Ctrl+Y)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 000 12h3"/></svg><span>Redo</span></button>
+    </div>
+    <div class="group" data-p="clip">
+      <button id="sh-cut" class="big" title="Cut (Ctrl+X)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/><path d="M8 15.5L18 4M16 15.5L6 4"/></svg><span>Cut</span></button>
+      <button id="sh-copy" class="big" title="Copy (Ctrl+C)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="12" rx="1.8"/><path d="M15.5 8.5V5.8a1.8 1.8 0 00-1.8-1.8H6.3a1.8 1.8 0 00-1.8 1.8v9.4A1.8 1.8 0 006.3 17H8.5"/></svg><span>Copy</span></button>
+      <button id="sh-paste" class="big" title="Paste (Ctrl+V)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="16" rx="2"/><path d="M9 5V3.8h6V5M9 11h6M9 15h6"/></svg><span>Paste</span></button>
+    </div>
+    <div class="group" data-p="cells" data-st="data">
+      <button id="sh-filldown" class="big" title="Fill down (Ctrl+D)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="5" rx="1"/><path d="M12 11v8M8.5 15.5L12 19l3.5-3.5"/></svg><span>Fill down</span></button>
+      <button id="sh-fillright" class="big" title="Fill right (Ctrl+R)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="5" height="14" rx="1"/><path d="M11 12h8M15.5 8.5L19 12l-3.5 3.5"/></svg><span>Fill right</span></button>
+      <button id="sh-clear" class="big" title="Clear the selected cells (Delete)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14M10 7V4.5h4V7M7 7l1 12.5h8L17 7M10.5 11v5M13.5 11v5"/></svg><span>Clear</span></button>
+      <button id="sh-sum" class="big" title="AutoSum: add up the numbers above or to the left (Alt+=)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5H7l6 7-6 7h11"/></svg><span>AutoSum</span></button>
+    </div>
+    <div class="group" data-p="font">
+      <select id="sh-size" title="Font size" aria-label="Font size"><option value="">11</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>14</option><option>16</option><option>18</option><option>20</option><option>24</option></select>
+      <button id="sh-b" class="fmt" title="Bold (Ctrl+B)" aria-pressed="false"><b>B</b></button>
+      <button id="sh-i" class="fmt" title="Italic (Ctrl+I)" aria-pressed="false"><i>I</i></button>
+      <button id="sh-u" class="fmt" title="Underline (Ctrl+U)" aria-pressed="false"><u>U</u></button>
+      <button id="sh-s" class="fmt" title="Strikethrough (Ctrl+5)" aria-pressed="false"><s>S</s></button>
+      <span class="split"><button id="sh-tcolor" class="fmt" title="Text colour (click to apply the last colour)"><span class="gl">A</span><i class="bar" style="background:#c00000"></i></button><button id="sh-tcolor-a" class="arrow" title="Choose a text colour" aria-label="Choose a text colour">&#9662;</button></span>
+      <span class="split"><button id="sh-fill" class="fmt" title="Fill colour (click to apply the last colour)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l7-7 7 7-7 7z"/><path d="M20 15c1 1.6 1.5 2.6 1.5 3.4a1.5 1.5 0 01-3 0c0-.8.5-1.8 1.5-3.4z"/></svg><i class="bar" style="background:#ffee00"></i></button><button id="sh-fill-a" class="arrow" title="Choose a fill colour" aria-label="Choose a fill colour">&#9662;</button></span>
+    </div>
+    <div class="group" data-p="align">
+      <button id="sh-al" class="fmt" title="Align left" aria-pressed="false"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 10h10M4 14h16M4 18h10"/></svg></button>
+      <button id="sh-ac" class="fmt" title="Centre" aria-pressed="false"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 10h10M4 14h16M7 18h10"/></svg></button>
+      <button id="sh-ar" class="fmt" title="Align right" aria-pressed="false"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M10 10h10M4 14h16M10 18h10"/></svg></button>
+      <button id="sh-wrap" class="fmt" title="Wrap text: show long text on several lines inside the cell" aria-pressed="false"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h12a3 3 0 0 1 0 6H9M11.5 15.5L9 18l2.5 2.5M4 18h2"/></svg></button>
+    </div>
+    <div class="group" data-p="number">
+      <select id="sh-nf" title="Number format" aria-label="Number format"><option value="0">General</option><option value="1">Number</option><option value="2">Comma</option><option value="3">Currency</option><option value="4">Percent</option><option value="5">Date</option><option value="6">Scientific</option></select>
+      <button id="sh-cur" class="fmt" title="Currency (Ctrl+Shift+4)">$</button>
+      <button id="sh-pct" class="fmt" title="Percent (Ctrl+Shift+5)">%</button>
+      <button id="sh-comma" class="fmt" title="Comma style (Ctrl+Shift+1)">,</button>
+      <button id="sh-decmore" class="fmt" title="More decimals">.0&#8594;</button>
+      <button id="sh-decless" class="fmt" title="Fewer decimals">&#8592;.0</button>
+    </div>
+    <div class="group" data-p="borders">
+      <button id="sh-borders" class="big" title="Borders: lines around and inside cells"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M12 4v16M4 12h16"/></svg><span>Borders &#9662;</span></button>
+      <button id="sh-paint" class="big" title="Format painter: copy the look of the active cell onto other cells"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3.5" width="13" height="6" rx="1.5"/><path d="M17 6.5h2.5V12H12v3"/><rect x="10.2" y="15" width="3.6" height="6" rx="1"/></svg><span>Painter</span></button>
+      <button id="sh-clearfmt" class="big" title="Clear formatting (keeps the values)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h12M12 6v12M9 18h6"/><path d="M16 14l5 5M21 14l-5 5"/></svg><span>No format</span></button>
+    </div>
+    <div class="group" data-p="charts" data-st="insert">
+      <button id="sh-chcol" class="big" title="Column chart: compare amounts side by side. Select your data first, with its labels"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="5" y="12" width="3.5" height="8" rx=".6"/><rect x="10.3" y="6" width="3.5" height="14" rx=".6"/><rect x="15.5" y="9.5" width="3.5" height="10.5" rx=".6"/></svg><span>Column</span></button>
+      <button id="sh-chline" class="big" title="Line chart: show how numbers change. Select your data first, with its labels"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16h16"/><path d="M6.5 15.5l4-5 3.5 3 5-7"/></svg><span>Line</span></button>
+      <button id="sh-chpie" class="big" title="Pie chart: show parts of a whole. Select one column of numbers with its labels"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 12V4M12 12l6.6 4.6"/></svg><span>Pie</span></button>
+      <button id="sh-chbar" class="big" title="Bar chart: bars lie sideways, good for long labels. Select your data first, with its labels"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16"/><rect x="4.6" y="5.5" width="10" height="3.4" rx=".6"/><rect x="4.6" y="10.4" width="14" height="3.4" rx=".6"/><rect x="4.6" y="15.3" width="7" height="3.4" rx=".6"/></svg><span>Bar</span></button>
+      <button id="sh-chstack" class="big" title="Stacked column chart: columns made of parts. Select your data first, with its labels"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="5.5" y="12" width="4.5" height="8" rx=".6"/><rect x="5.5" y="7" width="4.5" height="5" rx=".6"/><rect x="13.5" y="14" width="4.5" height="6" rx=".6"/><rect x="13.5" y="10" width="4.5" height="4" rx=".6"/></svg><span>Stacked</span></button>
+      <button id="sh-charea" class="big" title="Area chart: a line with the space below it filled. Select your data first, with its labels"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M4 20V14l5-5 4 3 7-7v15z"/></svg><span>Area</span></button>
+    </div>
+    <div class="group" data-p="insrc" data-st="insert">
+      <button id="sh-insrow" class="big" title="Insert rows above the selection (Ctrl+Shift+=)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M12 3.5v5M9.5 6h5"/></svg><span>Insert rows</span></button>
+      <button id="sh-inscol" class="big" title="Insert columns left of the selection"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="11" y="4" width="9" height="16" rx="1.5"/><path d="M3.5 12h5M6 9.5v5"/></svg><span>Insert columns</span></button>
+      <button id="sh-delrow" class="big" title="Delete the selected rows (Ctrl+-)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M9.5 6h5"/></svg><span>Delete rows</span></button>
+      <button id="sh-delcol" class="big" title="Delete the selected columns"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="11" y="4" width="9" height="16" rx="1.5"/><path d="M6 12H3.5"/></svg><span>Delete columns</span></button>
+    </div>
+    <div class="group" data-p="data" data-st="data">
+      <button id="sh-sortaz" class="big" title="Sort A to Z: smallest first, by the active cell's column"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M3.8 16.8L7 20l3.2-3.2"/><path d="M14 5h5l-5 5h5M14 20v-4.5a2.5 2.5 0 015 0V20M14 18h5"/></svg><span>Sort A-Z</span></button>
+      <button id="sh-sortza" class="big" title="Sort Z to A: largest first, by the active cell's column"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M3.8 16.8L7 20l3.2-3.2"/><path d="M14 10h5l-5-5h5M14 20v-4.5a2.5 2.5 0 015 0V20M14 18h5" transform="translate(0 0)"/></svg><span>Sort Z-A</span></button>
+      <button id="sh-filter" class="big" title="Filter: add arrows to the heading row to show only the rows you want"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg><span>Filter</span></button>
+      <button id="sh-valid" class="big" title="Data validation: only let certain entries into the selected cells"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12.5l3 3 5-6"/></svg><span>Validation</span></button>
+      <button id="sh-merge" class="big" title="Merge cells into one (click again on a merged block to split it)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="6" width="17" height="12" rx="1.5"/><path d="M9 12H5.5M7 10.2L5.2 12 7 13.8M15 12h3.5M17 10.2l1.8 1.8-1.8 1.8"/></svg><span>Merge</span></button>
+      <button id="sh-freeze" class="big" title="Freeze panes: keep the rows above and the columns left of the active cell in view while you scroll (click again to unfreeze)"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M4 9.5h16M9.5 4v16"/></svg><span>Freeze</span></button>
+    </div>
+  </div>
+  <div class="sh-fbar">
+    <input id="sh-namebox" class="sh-namebox" value="A1" spellcheck="false" aria-label="Cell name" title="Cell name: type a cell like D5 or a range like A1:C9 and press Enter">
+    <span class="sh-fx" aria-hidden="true">fx</span>
+    <input id="sh-formula" class="sh-formula" spellcheck="false" autocomplete="off" aria-label="Formula bar" placeholder="Type a value or a formula such as =SUM(A1:A9)">
+  </div>
+  <div class="sh-wrap" id="sh-wrap">
+    <div class="sh-scroll" id="sh-scroll"><canvas id="sh-canvas"></canvas><div id="sh-spacer"></div></div>
+    <input id="sh-editor" class="sh-editor" hidden spellcheck="false" autocomplete="off" aria-label="Cell editor">
+    <textarea id="sh-keys" class="sh-keys" aria-label="Spreadsheet" spellcheck="false" autocomplete="off"></textarea>
+    <p id="sh-offline" class="sh-offline" hidden>The spreadsheet engine runs in the MTRX Office desktop app. Install it from the website to use Sheets.</p>
+  </div>
+  <div class="sh-tabbar" id="sh-tabbar">
+    <button class="sh-tabnav" id="sh-tabprev" title="Previous sheet (Ctrl+PageUp)" aria-label="Previous sheet">&#9664;</button>
+    <button class="sh-tabnav" id="sh-tabnext" title="Next sheet (Ctrl+PageDown)" aria-label="Next sheet">&#9654;</button>
+    <div class="sh-tablist" id="sh-tablist" role="tablist" aria-label="Sheets"></div>
+    <button class="sh-tabadd" id="sh-tabadd" title="Insert a new sheet (Shift+F11)" aria-label="Insert sheet">+</button>
+  </div>
+  <div class="status"><span id="sh-stats">&nbsp;</span><span class="spacer"></span><span id="sh-msg"></span></div>
+</section>
+
+<div class="modal-bg" id="modal-bg" hidden><div class="modal" id="modal"></div></div>
+<input type="file" id="file-img" accept="image/*" hidden>
+<input type="file" id="pdf-file-img" accept="image/png,image/jpeg" hidden>
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="session.js"></script>
+<script src="app.js"></script>
+<script src="extras.js"></script>
+<script src="citations.js"></script>
+<script src="pdfapp.js"></script>
+<script src="sheets.js"></script>
+<script src="menu.js"></script>
+<script src="guard.js"></script>
+</body>
+</html>

@@ -1,0 +1,595 @@
+:root{--lilac:#32000c;--deep:#32000c;--blue:#32000c;--ink-on-lilac:#ffffff;--bg:#e6e8ec;--line:#cfd4dc;--ink:#1c2230}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;font:14px "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+.spacer{flex:1}
+.top{display:flex;align-items:center;gap:10px;background:var(--lilac);color:var(--ink-on-lilac);padding:8px 14px}
+.brand{font-weight:600;letter-spacing:.12em;font-size:13px}.brand b{font-weight:300}
+.doc-title{background:transparent;border:1px solid transparent;color:var(--ink-on-lilac);font:600 15px "Segoe UI";padding:4px 8px;border-radius:4px;width:320px}
+.doc-title:hover,.doc-title:focus{border-color:#ffffff55;outline:none}
+.btn{background:#ffffff1f;border:0;color:var(--ink-on-lilac);padding:6px 14px;border-radius:4px;cursor:pointer;font:inherit}
+.btn:hover{background:#ffffff38}.btn.primary{background:#fff;color:var(--deep);font-weight:600}
+.ribbon{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;background:#f7f8fa;border-bottom:1px solid var(--line);padding:6px 10px}
+.group{display:flex;gap:2px;align-items:center;padding:0 8px;border-right:1px solid var(--line)}
+.group:last-child{border-right:0}
+.group[hidden]{display:none}
+.ribbon button,.ribbon select,.color{height:28px;min-width:28px;border:1px solid transparent;background:transparent;border-radius:4px;font:inherit;cursor:pointer;padding:0 7px}
+.ribbon select{border-color:var(--line);background:#fff}
+.ribbon button:hover,.color:hover{background:#f7eaed;border-color:#e9c6cd}
+.ribbon button.on{background:#f3dde1;border-color:#32000c}
+.color{position:relative;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+.color input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.hl{color:#d4a800}
+.desk{flex:1;overflow:auto;padding:28px 0;display:flex;justify-content:center}
+.sheet{--pw:816px;--ph:1056px;--mt:96px;--mb:96px;--ml:96px;--mr:96px;position:relative;width:var(--pw);min-height:var(--ph);height:fit-content;background:transparent;isolation:isolate;padding:var(--mt) var(--mr) var(--mb) var(--ml);margin:0 auto;flex:none}
+.page{min-height:calc(var(--ph) - var(--mt) - var(--mb));outline:none;font:11pt Calibri,"Segoe UI",sans-serif;line-height:1.35;color:#000}
+.hf{position:absolute;left:var(--ml);right:var(--mr);text-align:center;font:10pt Calibri,"Segoe UI",sans-serif;color:#555;white-space:pre-line;pointer-events:none}
+.hdr{top:calc(var(--mt) / 2 - 8px)}.ftr{bottom:calc(var(--mb) / 2 - 8px)}
+.hf:empty{display:none}
+.page{counter-reset:fn}
+.page sup.fn{counter-increment:fn;color:var(--deep);cursor:pointer;position:relative;font-weight:700}
+.page sup.fn::after{content:counter(fn)}
+.page sup.fn:hover::before{content:attr(data-note);position:absolute;left:0;top:1.4em;z-index:5;background:#1c2230;color:#fff;font:400 11px "Segoe UI";padding:4px 8px;border-radius:4px;width:max-content;max-width:260px;white-space:pre-wrap}
+.fnlist{margin:18pt 0 0;padding:6pt 0 0 20px;border-top:1px solid #999;font:9pt Calibri,"Segoe UI",sans-serif;color:#333}
+.fnlist[hidden]{display:none}
+.page p{margin:0 0 8pt}
+.page h1{font-size:20pt;color:var(--deep);margin:12pt 0 6pt}.page h2{font-size:16pt;color:var(--deep);margin:10pt 0 4pt}.page h3{font-size:13pt;color:var(--deep);margin:8pt 0 4pt}
+.page table{border-collapse:collapse;width:100%;margin:6pt 0}
+.page td,.page th{border:1px solid #888;padding:4px 8px;min-width:40px;vertical-align:top}
+.page th{background:#f3dde1;font-weight:700;text-align:left}
+.page img{max-width:100%;cursor:pointer}
+.page img.sel{outline:2px solid var(--blue)}
+.status{display:flex;gap:16px;background:#f7f8fa;border-top:1px solid var(--line);padding:4px 14px;font-size:12px;color:#555}
+.modal-bg{position:fixed;inset:0;background:#0006;display:flex;align-items:center;justify-content:center;z-index:500}
+.modal-bg[hidden]{display:none}
+.modal{background:#fff;border-radius:8px;padding:20px 22px;min-width:380px;max-width:520px;box-shadow:0 8px 40px #0005}
+.modal h3{margin:0 0 14px;color:var(--deep)}
+.modal label{display:block;margin:10px 0 3px;font-size:12px;color:#555}
+.modal input,.modal select,.modal textarea{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:4px;font:inherit}
+.modal textarea{height:130px;font-family:Consolas,monospace}
+.modal .row{display:flex;gap:10px}.modal .row>div{flex:1}
+.modal .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.modal button{padding:7px 16px;border-radius:4px;border:1px solid var(--line);background:#fff;cursor:pointer;font:inherit}
+.modal button.ok{background:var(--deep);color:#fff;border-color:var(--deep)}
+.keys{width:100%;border-collapse:collapse;max-height:60vh}
+.keys td{padding:4px 6px;border-bottom:1px solid #eef0f3}.keys td:last-child{text-align:right;white-space:nowrap}
+kbd{background:#f1f3f6;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:1px 6px;font:12px "Segoe UI"}
+.modal:has(.keys){max-height:80vh;overflow:auto}
+#upd{position:fixed;right:16px;bottom:44px;z-index:9999}
+#upd[hidden]{display:none}
+.upd{display:block;background:#32000c;color:#fff;padding:9px 16px;border-radius:999px;cursor:pointer;font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.25)}
+.upd:hover{background:#4a0a1c}
+@media print{
+  .top,.ribbon,.status,#home,#pdfapp,.hf{display:none!important}
+  body{display:block;background:#fff}
+  .desk{display:block;padding:0;overflow:visible}
+  .sheet{width:auto;min-height:0;height:auto;padding:0;margin:0;box-shadow:none}
+  .page{min-height:0}
+  .page sup.fn:hover::before{content:none}
+  .page tr,.page img{break-inside:avoid}
+  .page h1,.page h2,.page h3{break-after:avoid}
+}
+
+/* ---- PDF app ---- */
+#pdfapp{display:none}
+body.pdf #pdfapp{display:flex;flex:1;flex-direction:column;min-height:0}
+body.pdf>.top,body.pdf>.ribbon,body.pdf>.desk,body.pdf>.status{display:none}
+#pdfapp .top{flex:none}
+.pdf-name{opacity:.85;font-weight:600}
+.pdf-zoom{min-width:44px;text-align:center;font-size:12px}
+#pdf-tools button.on{background:#f3dde1;border-color:#32000c}
+.pdf-pages{flex:1;overflow:auto;padding:18px 0;background:var(--bg);display:flex;flex-direction:column;align-items:center;gap:14px}
+.pdf-empty{margin:auto;color:#667}
+.pdf-page{position:relative;background:#fff;box-shadow:0 2px 14px #0003;flex:none}
+.pdf-page canvas{display:block;width:100%;height:100%}
+.pdf-layer{position:absolute;inset:0;overflow:hidden}
+.pdf-layer.t-text{cursor:text}.pdf-layer.t-highlight,.pdf-layer.t-draw{cursor:crosshair}
+.pdf-layer svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.an{position:absolute;transform-origin:0 0}
+.an.sel{outline:2px dashed #32000c;outline-offset:2px}
+.an-text{white-space:pre;line-height:1.2;min-width:8px;min-height:1em;cursor:move;font-family:Helvetica,Arial,sans-serif}
+.an-text:focus{outline:2px solid #32000c;cursor:text}
+.an-hl{cursor:move;mix-blend-mode:multiply}
+.an-img{cursor:move}.an-img img{width:100%;height:100%;display:block;pointer-events:none}
+.pdf-page.cur{box-shadow:0 0 0 3px #32000c55,0 2px 14px #0003}
+body.home #pdfapp{display:none}
+
+/* ---- home / dashboard ---- */
+#home{display:none}
+body.home #home{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--lilac);color:#fff}
+body.home>.top,body.home>.ribbon,body.home>.desk,body.home>.status{display:none}
+.home-brand{font-size:34px;letter-spacing:.2em;font-weight:600}.home-brand b{font-weight:300}
+.home-sub{margin:0 0 22px;opacity:.7}
+.apps{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.app-card{width:180px;padding:22px 16px;border-radius:10px;background:#ffffff14;border:1px solid #ffffff30;color:#fff;font:inherit;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+button.app-card:hover{background:#ffffff2b}.app-card.soon{opacity:.45;cursor:default}
+.app-ico{width:54px;height:54px;border-radius:12px;background:#fff;color:var(--deep);font:700 28px "Segoe UI";display:flex;align-items:center;justify-content:center}
+.app-card small{opacity:.75;text-align:center}
+
+.pgbox{position:absolute;left:0;right:0;background:#fff;box-shadow:0 2px 14px #0003;z-index:-2;pointer-events:none}
+.pgbox .hf{left:var(--ml);right:var(--mr)}
+.pgbox .hdr{top:calc(var(--mt) / 2 - 8px)}.pgbox .ftr{bottom:calc(var(--mb) / 2 - 8px)}
+@media print{.pgbox{display:none!important}}
+.home-brand{background:linear-gradient(100deg,#c97b93 0%,#f3b6c8 35%,#d98aa4 55%,#ffe0e9 75%,#c97b93 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 1px 8px #e88fa833)}
+.home-brand b{color:inherit;-webkit-text-fill-color:transparent}
+#home .home-sub,#home .app-card b,#home .app-card small{color:#f1b3c5}
+#home .app-card small{opacity:.8}
+#home .app-card.soon b,#home .app-card.soon small{color:#b98598}
+
+/* Like Word: the break itself is invisible; it just starts the next page. */
+.page .pb{height:0;margin:0;border:0;overflow:hidden;user-select:none}
+@media print{.page .pb{height:0;margin:0;border:0;break-after:page}.page .pb::after{content:none}}
+
+/* ===== Look v2: Satin home, tabbed ribbon, soft pill buttons, calm motion ===== */
+@font-face{font-family:"Cormorant Garamond";font-weight:500;font-style:normal;font-display:swap;src:url(vendor/fonts/cormorant-500.woff2) format("woff2")}
+:root{--bg:#e6e1df;--ease:cubic-bezier(.2,.7,.2,1);--pink1:#f3b6c8;--pink2:#d98aa4;--serif:"Cormorant Garamond",Georgia,"Times New Roman",serif}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes riseIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Satin home */
+body.home #home{position:relative;overflow:hidden;gap:10px;background:radial-gradient(120% 90% at 20% 0%,#6a1230 0%,#32000c 55%,#1f0007 100%)}
+body.home #home::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,#ffffff10 45%,transparent 60%);pointer-events:none}
+#home>*{position:relative}
+.home-brand{font-family:var(--serif);font-weight:500;font-size:clamp(40px,7vw,78px);line-height:1;letter-spacing:.28em;padding-left:.28em}
+.home-brand b{font-weight:500}
+.home-sub{letter-spacing:.14em;text-transform:uppercase;font-size:12px;margin-bottom:30px}
+.app-card{width:190px;padding:26px 18px;border-radius:20px;background:#ffffff14;border:1px solid #ffffff22;backdrop-filter:blur(6px);transition:transform .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease)}
+button.app-card:hover{background:#ffffff26;transform:translateY(-4px);box-shadow:0 14px 34px #0005}
+button.app-card:active{transform:translateY(-1px) scale(.99)}
+button.app-card:focus-visible,.btn:focus-visible,.ribbon button:focus-visible,.tabs button:focus-visible{outline:2px solid var(--pink1);outline-offset:2px}
+.app-ico{border-radius:16px}
+body.home #home>*{animation:riseIn .6s var(--ease) both}
+body.home #home>.home-sub{animation-delay:.08s}body.home #home>.apps{animation-delay:.16s}
+
+/* Tabbed ribbon */
+.tabs{display:flex;gap:22px;background:#fff;padding:8px 18px 0;border-bottom:1px solid var(--line)}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:4px 2px 8px;font:inherit;color:#6b5b5f;cursor:pointer;transition:color .2s var(--ease),border-color .2s var(--ease)}
+.tabs button:hover{color:var(--deep)}
+.tabs button.on{color:var(--deep);font-weight:600;border-bottom-color:var(--deep)}
+#ribbon{justify-content:flex-start;background:#faf8f7;padding:8px 14px;min-height:46px}
+#ribbon .group{border-right:1px solid #e4dcda}
+#ribbon[data-tab=home] .group:not([data-p=home]):not([data-p=all]),
+#ribbon[data-tab=insert] .group:not([data-p=insert]):not([data-p=all]),
+#ribbon[data-tab=layout] .group:not([data-p=layout]):not([data-p=all]),
+#ribbon[data-tab=help] .group:not([data-p=help]):not([data-p=all]){display:none}
+#ribbon[data-tab] .group[hidden]{display:none}
+.ribbon button,.ribbon select,.color{border-radius:8px;transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)}
+.ribbon select{border-radius:8px}
+.ribbon button.on,#pdf-tools button.on{background:var(--deep);border-color:var(--deep);color:#fff}
+
+/* Soft pill buttons */
+.btn{border-radius:99px;padding:7px 18px;background:#ffffff1c;transition:background .2s var(--ease),transform .12s var(--ease),box-shadow .2s var(--ease)}
+.btn:hover{background:#ffffff33}.btn:active{transform:scale(.97)}
+.btn.primary{background:linear-gradient(135deg,var(--pink1),var(--pink2));color:var(--deep);font-weight:700;box-shadow:0 4px 16px #d98aa44d}
+.btn.primary:hover{background:linear-gradient(135deg,#f8c4d3,#e197b0);box-shadow:0 6px 20px #d98aa466}
+.modal button{border-radius:99px;padding:8px 20px;transition:background .2s var(--ease),transform .12s var(--ease)}
+.modal button:hover{background:#f7eaed}.modal button:active{transform:scale(.97)}
+.modal button.ok{background:var(--deep)}.modal button.ok:hover{background:#4a0f1f}
+.modal{border-radius:16px}
+
+/* Calm motion */
+.modal-bg:not([hidden]){animation:fadeIn .2s var(--ease)}
+.modal-bg:not([hidden]) .modal{animation:riseIn .3s var(--ease)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
+body.home>.tabs,body.pdf>.tabs{display:none}
+@media print{.tabs{display:none!important}}
+
+/* Ribbon icons: one stroke set, icon above label for the big buttons */
+.ribbon .ic{display:block;flex:none}
+.ribbon button.big{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:58px;min-width:62px;padding:6px 10px;font-size:11.5px;color:#3a2a2e;line-height:1}
+.ribbon button.big .ic{color:var(--deep)}
+.ribbon button.big:hover{background:#f3e6e9;border-color:transparent}
+.ribbon button.big:active{transform:scale(.97)}
+.ribbon [data-cmd] .ic,.color .ic{color:#3a2a2e}
+.ribbon button.on .ic{color:#fff}
+.ribbon .color.hl{color:inherit}.color.hl .ic{color:#c9a000}
+.tabs button:focus{outline:none}
+.tabs button:focus-visible{outline:none;color:var(--deep);background:#f3e6e9;border-radius:6px 6px 0 0}
+
+
+/* Home logo: tinted with the pink gradient via mask */
+.home-logo{width:170px;height:170px;max-height:22vh;margin:0 auto 10px;background:linear-gradient(135deg,var(--pink1),var(--pink2));-webkit-mask:url(logo.svg) center/contain no-repeat;mask:url(logo.svg) center/contain no-repeat}
+
+/* Home: pin content toward the top so the app cards sit higher */
+body.home #home{justify-content:flex-start;padding-top:clamp(16px,6vh,64px);gap:6px}
+.home-logo{margin-bottom:0}
+.home-sub{margin-bottom:22px}
+
+.home-foot{margin-top:auto;padding:14px 0 18px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#f1b3c5;opacity:.55}
+body.home #home>.home-foot{animation-delay:.24s}
+
+/* Custom context menu */
+@keyframes ctxIn{from{opacity:0;transform:scale(.97) translateY(-3px)}}
+
+/* Unobtrusive draft chip on the home page */
+.draft-chip{display:flex;align-items:center;margin-top:18px;border:1px solid #f3b6c82e;border-radius:999px;background:#f3b6c812;font-size:12px;color:#f1b3c5}
+.draft-chip button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:7px 12px}
+.draft-chip .go{padding-right:6px}
+.draft-chip .x{padding:7px 12px 7px 6px;opacity:.6;font-size:15px;line-height:1}
+.draft-chip button:hover{color:#fff}
+
+/* Desk (space around the page) + zoom */
+.desk{background:radial-gradient(130% 90% at 50% 0%,#e4dcde 0%,#d3c9cc 60%,#c6bbbf 100%);padding:32px 24px 48px;justify-content:normal;scroll-behavior:auto}
+.zoomwrap{margin:0 auto;flex:none;position:relative}
+.zoomwrap .sheet{transform-origin:0 0;margin:0}
+.pgbox{box-shadow:0 1px 2px #32000c26,0 8px 28px #32000c2e,0 0 0 1px #32000c0f}
+.desk::-webkit-scrollbar{width:12px;height:12px}
+.desk::-webkit-scrollbar-track{background:transparent}
+.desk::-webkit-scrollbar-thumb{background:#32000c40;border-radius:8px;border:3px solid transparent;background-clip:content-box}
+.desk::-webkit-scrollbar-thumb:hover{background:#32000c70;background-clip:content-box;border:3px solid transparent}
+.status{background:#f4eef0;border-top-color:#e2d6da}
+.zoom{display:inline-flex;align-items:center;gap:2px}
+.zoom button{border:0;background:none;color:#5a3a44;font:inherit;min-width:24px;height:22px;padding:0 6px;border-radius:6px;cursor:pointer}
+.zoom button:hover{background:#32000c14;color:#32000c}
+.zoom #z-val{min-width:46px;font-variant-numeric:tabular-nums}
+@media print{.zoomwrap{width:auto!important;height:auto!important}.zoomwrap .sheet{transform:none!important}}
+
+/* ---- Find bar, side panel, ruler, symbols ---- */
+::highlight(find-all){background:#ffe48a;color:#000}
+::highlight(find-cur){background:#f3b6c8;color:#000}
+.findbar{position:fixed;top:128px;right:30px;z-index:60;display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:12px;background:#2a0a14f2;border:1px solid #f3b6c826;box-shadow:0 14px 40px #0008;color:#f6d3dd;backdrop-filter:blur(10px);animation:ctxIn .14s var(--ease)}
+.findbar[hidden]{display:none}
+.findbar .fr{display:flex;align-items:center;gap:4px}
+.findbar .rep{display:none}.findbar.with-rep .rep{display:flex}
+.findbar input{width:190px;padding:6px 9px;border-radius:8px;border:1px solid #f3b6c833;background:#0003;color:#fff;font:13px "Segoe UI",system-ui,sans-serif;outline:none}
+.findbar input:focus{border-color:var(--pink1)}
+.findbar button{border:0;background:#f3b6c81a;color:#f6d3dd;border-radius:7px;min-width:26px;height:26px;padding:0 8px;font:12px "Segoe UI",system-ui,sans-serif;cursor:pointer}
+.findbar button:hover{background:#f3b6c840;color:#fff}.findbar button.on{background:var(--pink1);color:var(--deep)}
+.findbar .fn{font-size:11px;opacity:.7;min-width:38px;text-align:center}
+.side{position:fixed;left:0;z-index:20;width:230px;display:flex;flex-direction:column;background:#f4eef0;border-right:1px solid #e2d6da}
+.side[hidden]{display:none}
+.side-tabs{display:flex;gap:2px;padding:8px 8px 0}
+.side-tabs button{flex:1;border:0;background:none;padding:7px 0;border-radius:8px 8px 0 0;color:#6b4a54;font:600 12px "Segoe UI",system-ui,sans-serif;cursor:pointer;border-bottom:2px solid transparent}
+.side-tabs button.on{color:var(--deep);border-bottom-color:var(--deep)}
+.side-body{flex:1;overflow:auto;padding:8px}
+.side-empty{margin:10px 6px;font-size:12px;line-height:1.5;color:#7b5d66}
+.ol{display:block;width:100%;text-align:left;border:0;background:none;border-radius:7px;padding:6px 8px;color:#3a2a2e;font:13px "Segoe UI",system-ui,sans-serif;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ol:hover{background:#32000c12}.ol.l1{font-weight:700}.ol.l2{padding-left:20px}.ol.l3{padding-left:32px;font-size:12px;color:#6b4a54}
+.thumb{display:flex;flex-direction:column;align-items:center;gap:5px;width:100%;border:0;background:none;padding:8px 0;cursor:pointer;border-radius:8px}
+.thumb:hover{background:#32000c0f}
+.tcard{display:block;width:120px;height:156px;overflow:hidden;padding:12px 10px;background:#fff;box-shadow:0 1px 6px #32000c33;font:7px/1.4 "Segoe UI",system-ui,sans-serif;color:#555;text-align:left}
+.tnum{font-size:11px;color:#6b4a54}
+body.has-side .desk{margin-left:230px}
+.ruler{position:fixed;z-index:15;height:22px;overflow:hidden;background:#efe7ea;border-bottom:1px solid #d8cbd0;cursor:default}
+.ruler[hidden]{display:none}
+.rstrip{position:absolute;top:0;height:21px;background:#d9cdd2}
+.rbody{position:absolute;top:0;bottom:0;background:#fff}
+.rstrip i{position:absolute;bottom:0;width:1px;background:#8a6f78}
+.rstrip i.q{height:4px}.rstrip i.half{height:7px}.rstrip i.in{height:10px}
+.rstrip b{position:absolute;top:2px;transform:translateX(-50%);font:600 9px "Segoe UI",system-ui,sans-serif;color:#6b4a54}
+body.has-ruler .desk{padding-top:54px}
+.viewtog{display:inline-flex;gap:2px;margin-right:10px}
+.viewtog button{border:0;background:none;color:#5a3a44;font:inherit;height:22px;padding:0 8px;border-radius:6px;cursor:pointer}
+.viewtog button:hover{background:#32000c14}.viewtog button.on{background:#32000c1a;color:var(--deep);font-weight:600}
+.sympop{position:fixed;z-index:70;width:262px;display:grid;grid-template-columns:repeat(8,1fr);gap:2px;padding:8px;border-radius:12px;background:#2a0a14f2;border:1px solid #f3b6c826;box-shadow:0 14px 40px #0008;animation:ctxIn .14s var(--ease)}
+.sympop[hidden]{display:none}
+.sympop button{height:30px;border:0;border-radius:7px;background:none;color:#f6d3dd;font:16px "Segoe UI Symbol","Segoe UI",sans-serif;cursor:pointer}
+.sympop button:hover{background:#f3b6c840;color:#fff}
+body.home .findbar,body.home .side,body.home .ruler,body.home .sympop,body.pdf .findbar,body.pdf .side,body.pdf .ruler,body.pdf .sympop{display:none!important}
+@media print{.findbar,.side,.ruler,.sympop{display:none!important}body.has-side .desk{margin-left:0}body.has-ruler .desk{padding-top:0}}
+
+/* Table corner grip */
+.tgrip{position:fixed;z-index:25;width:14px;height:14px;border-radius:4px;background:var(--pink2);border:2px solid #fff;box-shadow:0 1px 5px #32000c66;cursor:nwse-resize;touch-action:none}
+.tgrip[hidden]{display:none}
+.tgrip:hover{background:var(--deep)}
+body.tdrag,body.tdrag *{cursor:nwse-resize!important;user-select:none}
+body.home .tgrip,body.pdf .tgrip{display:none!important}
+@media print{.tgrip{display:none!important}}
+
+/* Table: column resize cursor, +row/+col buttons */
+.page.colresize,.page.colresize *{cursor:col-resize!important}
+body.tdrag-col,body.tdrag-col *{cursor:col-resize!important;user-select:none}
+.tplus{position:fixed;z-index:25;width:20px;height:20px;padding:0;border:0;border-radius:50%;background:#32000c14;color:var(--deep);font:700 14px/20px "Segoe UI",sans-serif;text-align:center;cursor:pointer;opacity:.55;transition:opacity .15s,background .15s}
+.tplus:hover{opacity:1;background:var(--pink1)}
+.tplus[hidden]{display:none}
+body.home .tplus,body.pdf .tplus{display:none!important}
+@media print{.tplus{display:none!important}}
+
+/* Tables: stable columns (typing never reflows them) and text always wraps inside its cell */
+.page table{table-layout:fixed;width:100%}
+.page td,.page th{overflow-wrap:anywhere;word-break:break-word}
+
+/* PDF pages are drawn, never text-selected (drawing/highlighting drags used to select) */
+.pdf-page,.pdf-layer{user-select:none;-webkit-user-select:none}
+.pdf-page .an[contenteditable]{user-select:text;-webkit-user-select:text}
+
+/* image resize handles (PDF) */
+.hdl{display:none;position:absolute;width:10px;height:10px;background:#fff;border:2px solid #32000c;border-radius:2px;z-index:3;box-sizing:border-box}
+.an.sel .hdl{display:block}
+.hdl-nw{left:-7px;top:-7px;cursor:nwse-resize}.hdl-se{right:-7px;bottom:-7px;cursor:nwse-resize}
+.hdl-ne{right:-7px;top:-7px;cursor:nesw-resize}.hdl-sw{left:-7px;bottom:-7px;cursor:nesw-resize}
+
+/* picture handles (Writer) */
+.imgbox{position:fixed;z-index:40;outline:2px solid #32000c;pointer-events:none}
+.imgbox .hdl{display:block;pointer-events:auto}
+body.home .imgbox,body.pdf .imgbox{display:none!important}
+.page img{cursor:move}
+
+.hdl-n{left:calc(50% - 5px);top:-7px;cursor:ns-resize}.hdl-s{left:calc(50% - 5px);bottom:-7px;cursor:ns-resize}
+.hdl-e{top:calc(50% - 5px);right:-7px;cursor:ew-resize}.hdl-w{top:calc(50% - 5px);left:-7px;cursor:ew-resize}
+
+/* picture wrapping */
+.sheet{isolation:isolate}
+.page img[data-wrap=left]{float:left;margin:4px 14px 4px 0}
+.page img[data-wrap=right]{float:right;margin:4px 0 4px 14px}
+.page img[data-wrap=behind],.page img[data-wrap=front]{position:absolute;margin:0}
+.page img[data-wrap=behind]{z-index:-1}
+.page img[data-wrap=front]{z-index:5}
+.imgbar{position:fixed;z-index:41;display:flex;gap:2px;padding:3px;background:#fff;border:1px solid #32000c;border-radius:8px;box-shadow:0 4px 14px #0003}
+.imgbar button{border:0;background:transparent;padding:4px 8px;border-radius:5px;font:12px/1 inherit;cursor:pointer;color:#32000c}
+.imgbar button:hover{background:#f3e3e8}.imgbar button.on{background:#32000c;color:#fff}
+body.home .imgbar,body.pdf .imgbar{display:none!important}
+.imgbox .hdl-n{left:calc(50% - 5px);top:-7px;cursor:ns-resize}.imgbox .hdl-s{left:calc(50% - 5px);bottom:-7px;cursor:ns-resize}
+.imgbox .hdl-e{top:calc(50% - 5px);right:-7px;cursor:ew-resize}.imgbox .hdl-w{top:calc(50% - 5px);left:-7px;cursor:ew-resize}
+.imgbar[hidden],.imgbox[hidden]{display:none!important}
+
+/* PDF: edit the document's own text in place */
+.pdf-layer.t-edit{cursor:text}
+.edithint{position:absolute;pointer-events:none;border:1.5px dashed #32000c;background:#32000c14;border-radius:2px;display:none}
+.an-cover{background:#fff;pointer-events:none}
+
+/* ===== MTRX PDF: premium surface ===== */
+#pdfapp .top{position:relative;padding:10px 18px;gap:12px;background:linear-gradient(180deg,#4b0a1f 0%,#32000c 62%,#2a000a 100%);box-shadow:0 1px 0 #ffffff14 inset,0 8px 24px -10px #32000c99;z-index:3}
+#pdfapp .top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,#f3b6c866 30%,#f3b6c866 70%,transparent)}
+#pdfapp .brand{font:500 14px var(--serif);letter-spacing:.28em;text-transform:uppercase;color:#f8dbe4}
+#pdfapp .brand b{font-weight:300;color:#f3b6c8}
+#pdfapp .pdf-name{font:600 14px "Segoe UI",system-ui,sans-serif;color:#fff;opacity:1;padding:5px 12px;border-radius:99px;background:#ffffff14;max-width:38vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pdf-tools{gap:4px;padding:8px 16px;background:linear-gradient(180deg,#fffdfd,#f7eff1);border-bottom:1px solid #e6d3d8;box-shadow:0 10px 24px -18px #32000c66;position:relative;z-index:2}
+#pdf-tools .group{padding:0 10px;border-right:1px solid #e8d8dc;gap:3px}
+#pdf-tools button.big{height:60px;min-width:64px;border-radius:12px;color:#4a2a32;font-weight:500}
+#pdf-tools button.big .ic{color:#32000c;transition:transform .2s var(--ease)}
+#pdf-tools button.big:hover{background:#fff;box-shadow:0 6px 16px -8px #32000c55,0 0 0 1px #ecd9de inset}
+#pdf-tools button.big:hover .ic{transform:translateY(-1px)}
+#pdf-tools button.on,#pdf-tools button.big.on{background:linear-gradient(160deg,#4d0b21,#32000c);color:#fff;box-shadow:0 8px 18px -8px #32000ccc,0 1px 0 #ffffff26 inset}
+#pdf-tools button.on .ic{color:#f8c4d3}
+#pdf-tools select{height:32px;border-radius:10px;border:1px solid #e0cdd2;background:#fff;color:#32000c}
+#pdf-tools .color{border-radius:10px;color:#32000c}
+.pdf-zoom{font-weight:600;color:#32000c}
+.pdf-pages{padding:28px 0 44px;gap:22px;background:radial-gradient(120% 70% at 50% -10%,#efe2e6 0%,#e4d9dc 45%,#d9cdd1 100%)}
+.pdf-page{border-radius:3px;box-shadow:0 1px 2px #32000c26,0 14px 34px -12px #32000c66,0 34px 70px -30px #32000c59}
+.pdf-page.cur{box-shadow:0 0 0 2px #d98aa4,0 14px 34px -12px #32000c66,0 34px 70px -30px #32000c59}
+.pdf-pages::-webkit-scrollbar{width:12px}.pdf-pages::-webkit-scrollbar-thumb{background:#32000c40;border-radius:99px;border:3px solid transparent;background-clip:content-box}.pdf-pages::-webkit-scrollbar-thumb:hover{background:#32000c80;background-clip:content-box;border:3px solid transparent}
+body.pdf .status{background:linear-gradient(180deg,#f7eff1,#f1e6e9);border-top:1px solid #e6d3d8;color:#5a3a42}
+.pdf-empty{font:500 20px var(--serif);letter-spacing:.06em;color:#7a5560}
+
+/* citations dialog */
+#modal .srcs{max-height:170px;overflow:auto;border:1px solid #e6d3d8;border-radius:10px;margin:8px 0;padding:4px}
+#modal .src{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:13px}
+#modal .src:hover{background:#f7eaed}#modal .src span{flex:1}
+#modal .src input{width:auto}#modal .src .x{border:0;background:transparent;font-size:18px;color:#8a5560;cursor:pointer}
+#modal .none{color:#7a5560;margin:8px}
+#modal details{margin:8px 0}#modal summary{cursor:pointer;font-weight:600;color:#32000c;margin:6px 0}
+#modal .actions button:disabled{opacity:.45;cursor:default}
+
+#modal .card{display:grid;gap:4px;padding:8px;border-bottom:1px solid #efe1e5}#modal .card small,#modal .flash small{color:#8a5560;font-weight:600}
+#modal .card textarea{width:100%;resize:vertical}
+#modal .flash{border:1px solid #e6d3d8;border-radius:14px;padding:22px;margin:10px 0;background:linear-gradient(180deg,#fff,#fbf3f5);min-height:130px}
+#modal .flash .q{font:600 18px "Segoe UI",system-ui;color:#32000c;margin:6px 0 12px}#modal .flash .a{border-top:1px dashed #d9bcc4;padding-top:12px;font-size:15px;color:#2a1a1e}
+
+/* Print / PDF export: the grey desk and its padding are screen-only (they must come after the look rules above). */
+@media print{html,body,.desk{background:#fff!important}.desk{padding:0!important;margin:0!important;overflow:visible!important}}
+
+/* PDF text layer: invisible but selectable; toolbars and chrome are never selectable */
+.pdf-text{position:absolute;inset:0;overflow:hidden;line-height:1;pointer-events:none}
+.pdf-text span{position:absolute;white-space:pre;color:transparent;transform-origin:0 0;user-select:text;-webkit-user-select:text}
+.pdf-text span::selection{background:#32000c55;color:transparent}
+.pdf-layer.t-select{pointer-events:none}
+.pdf-layer.t-select .an{pointer-events:auto}
+body.pdf #pdf-tools,body.pdf .top,.top,.ribbon,.status,.tabs,.pgbox,#home{user-select:none;-webkit-user-select:none}
+body.pdf .pdf-text{pointer-events:auto;cursor:text}
+body.pdf:has(.pdf-layer:not(.t-select)) .pdf-text{pointer-events:none}
+
+/* ===== MTRX Sheets ===== */
+#sheetsapp{display:none}
+body.sheets #sheetsapp{display:flex;flex:1;flex-direction:column;min-height:0}
+body.sheets>.top,body.sheets>.ribbon,body.sheets>.desk,body.sheets>.status,body.sheets>.tabs,body.home #sheetsapp,body.pdf #sheetsapp{display:none}
+body.sheets .findbar,body.sheets .side,body.sheets .ruler,body.sheets .sympop,body.sheets .tgrip,body.sheets .tplus,body.sheets .imgbox,body.sheets .imgbar{display:none!important}
+#sheetsapp .top{flex:none;position:relative;padding:10px 18px;gap:12px;background:linear-gradient(180deg,#4b0a1f 0%,#32000c 62%,#2a000a 100%);box-shadow:0 1px 0 #ffffff14 inset,0 8px 24px -10px #32000c99;z-index:3}
+#sheetsapp .top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,#f3b6c866 30%,#f3b6c866 70%,transparent)}
+#sheetsapp .brand{font:500 14px var(--serif);letter-spacing:.28em;text-transform:uppercase;color:#f8dbe4}
+#sheetsapp .brand b{font-weight:300;color:#f3b6c8}
+#sheetsapp .pdf-name{font:600 14px "Segoe UI",system-ui,sans-serif;color:#fff;padding:5px 12px;border-radius:99px;background:#ffffff14;max-width:38vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#sh-tools{gap:4px;padding:8px 16px;background:linear-gradient(180deg,#fffdfd,#f7eff1);border-bottom:1px solid #e6d3d8;box-shadow:0 10px 24px -18px #32000c66;position:relative;z-index:2;justify-content:flex-start}
+#sh-tools .group{padding:0 10px;border-right:1px solid #e8d8dc;gap:3px}
+#sh-tools button.big{height:60px;min-width:64px;border-radius:12px;color:#4a2a32;font-weight:500;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px}
+#sh-tools button.big .ic{color:#32000c}
+#sh-tools button.big:hover:not(:disabled){background:#fff;box-shadow:0 6px 16px -8px #32000c55,0 0 0 1px #ecd9de inset}
+#sh-tools button:disabled{opacity:.4;cursor:default}
+#sh-tools .group{align-items:center;flex-wrap:wrap;max-width:330px}
+#sh-tools[data-stab=home] .group[data-st],#sh-tools[data-stab=data] .group:not([data-st=data]),#sh-tools[data-stab=insert] .group:not([data-st=insert]){display:none}
+.sh-charts{position:absolute;right:0;bottom:0;overflow:hidden;pointer-events:none;z-index:3}
+.sh-chart{position:absolute;pointer-events:auto;background:#fff;border:1px solid #d9c4ca;border-radius:6px;box-shadow:0 8px 22px -12px #32000c66;cursor:move;box-sizing:border-box}
+.sh-chart .cv{position:absolute;inset:0;overflow:hidden;border-radius:5px}
+.sh-chart .cv svg{display:block;max-width:none}
+.sh-chart.sel{border-color:#32000c;box-shadow:0 0 0 2px #32000c55,0 8px 22px -12px #32000c66}
+.sh-chart .hd{display:none;position:absolute;width:10px;height:10px;background:#fff;border:1.5px solid #32000c;border-radius:3px;box-sizing:border-box}
+.sh-chart.sel .hd{display:block}
+.hd-nw{left:-6px;top:-6px;cursor:nwse-resize}.hd-n{left:calc(50% - 5px);top:-6px;cursor:ns-resize}.hd-ne{right:-6px;top:-6px;cursor:nesw-resize}.hd-e{right:-6px;top:calc(50% - 5px);cursor:ew-resize}
+.hd-se{right:-6px;bottom:-6px;cursor:nwse-resize}.hd-s{left:calc(50% - 5px);bottom:-6px;cursor:ns-resize}.hd-sw{left:-6px;bottom:-6px;cursor:nesw-resize}.hd-w{left:-6px;top:calc(50% - 5px);cursor:ew-resize}
+.sh-dlg-bg{position:fixed;inset:0;background:#32000c55;z-index:80;display:flex;align-items:center;justify-content:center}
+.sh-dlg-bg.find{background:none;pointer-events:none;align-items:flex-start;justify-content:flex-end;padding:120px 28px 0}
+.sh-dlg-bg.find .sh-dlg{pointer-events:auto;width:min(340px,92vw)}
+.sh-dlg .btns{flex-wrap:wrap}
+.sh-dlg{background:#fff;border-radius:12px;padding:18px 20px;width:min(380px,92vw);box-shadow:0 24px 60px -16px #32000caa;font:13px "Segoe UI",system-ui,sans-serif;color:#4a2a32}
+.sh-dlg h3{margin:0 0 12px;font-size:16px;color:#32000c}
+.sh-dlg label{display:block;margin:0 0 10px;font-weight:600}
+.sh-dlg label input:not([type=checkbox]):not([type=radio]),.sh-dlg label select{display:block;width:100%;margin-top:4px;height:30px;border:1px solid #d9c4ca;border-radius:7px;padding:0 8px;font:13px "Segoe UI",system-ui,sans-serif;box-sizing:border-box;background:#fff;color:#4a2a32}
+.sh-dlg label.chk{font-weight:400;display:flex;gap:8px;align-items:center}
+.sh-dlg .ch-colh{display:flex;align-items:center;justify-content:space-between;margin:2px 0 6px}
+.sh-dlg .ch-cols{display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:10px;max-height:110px;overflow:auto}
+.sh-dlg .ch-cols .sw{display:flex;flex-direction:row;align-items:center;gap:6px;margin:0;font-weight:400;font-size:12px}
+.sh-dlg .ch-cols .sw input[type=color]{width:26px;height:22px;padding:0;margin:0;border:1px solid #d9c4ca;border-radius:5px;background:#fff;cursor:pointer;flex:none}
+.sh-dlg .ch-cols .more{font-size:12px;color:#7a6a6e}
+.sh-dlg .btn.sm{height:24px;padding:0 10px;font-size:12px}
+.sh-dlg .err{color:#b00020;margin:0 0 8px}
+.sh-dlg .btns{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.sh-dlg .btn{height:32px;padding:0 16px;border-radius:8px;border:1px solid #d9c4ca;background:#fff;color:#4a2a32;font:600 13px "Segoe UI",system-ui,sans-serif;cursor:pointer}
+.sh-dlg .btn.primary{background:#32000c;color:#fff;border-color:#32000c}
+#sh-ribtabs{flex:none}
+/* one row that slides left/right when the window is narrow (not while customizing, which needs room) */
+#sh-tools:not(.customizing){flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#c9a3ae transparent}
+#sh-tools:not(.customizing) .group{flex:none;flex-wrap:nowrap;max-width:none}
+#sh-tools:not(.customizing)::-webkit-scrollbar{height:7px}
+#sh-tools:not(.customizing)::-webkit-scrollbar-thumb{background:#c9a3ae;border-radius:4px}
+#sh-tools button.fmt,#sh-tools .arrow{height:28px;min-width:28px;padding:0 6px;border:1px solid transparent;border-radius:7px;background:transparent;color:#4a2a32;font:600 13px "Segoe UI",system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;position:relative}
+#sh-tools button.fmt:hover,#sh-tools .arrow:hover{background:#fff;border-color:#ecd9de}
+#sh-tools button.fmt[aria-pressed=true],#sh-tools button.big.on{background:#f1d9e0;border-color:#d9a9b7;color:#32000c}
+#sh-tools .split{display:inline-flex;align-items:center}
+#sh-tools .split .fmt{border-top-right-radius:0;border-bottom-right-radius:0;padding:0 5px;flex-direction:column;justify-content:center;gap:0}
+#sh-tools .split .arrow{min-width:14px;width:14px;padding:0;border-top-left-radius:0;border-bottom-left-radius:0;font-size:9px}
+#sh-tools .gl{font-weight:700;line-height:15px}
+#sh-tools .bar{display:block;width:16px;height:4px;border-radius:1px;margin-top:1px}
+#sh-tools select{height:28px;border:1px solid #d9c4ca;border-radius:7px;background:#fff;color:#4a2a32;font:13px "Segoe UI",system-ui,sans-serif;padding:0 4px}
+.sh-pop{position:fixed;z-index:60;background:#fff;border:1px solid #d9c4ca;border-radius:10px;box-shadow:0 14px 34px -10px #32000c66;padding:8px;min-width:170px;font:13px "Segoe UI",system-ui,sans-serif;color:#4a2a32}
+.sh-pop .pal{display:grid;grid-template-columns:repeat(10,20px);gap:3px;margin:6px 0}
+.sh-pop .sw{width:20px;height:20px;border-radius:4px;border:1px solid #0002;padding:0;cursor:pointer}
+.sh-pop .sw:hover{outline:2px solid #32000c;outline-offset:1px}
+.sh-pop button.none,.sh-pop button.row{display:block;width:100%;text-align:left;border:0;background:transparent;padding:6px 10px;border-radius:6px;font:inherit;color:inherit;cursor:pointer}
+.sh-pop button.none:hover,.sh-pop button.row:hover{background:#f6e9ed}
+.sh-pop button.row.sel{background:#f1d9e0;font-weight:600}
+.sh-pop hr{border:0;border-top:1px solid #ecd9de;margin:6px 0}
+.sh-pop .custom{display:flex;align-items:center;gap:8px;padding:4px 10px}
+.sh-pop .custom input{width:34px;height:24px;border:0;padding:0;background:none}
+.sh-filter{width:250px;padding:8px}
+.sh-filter .fq{width:100%;box-sizing:border-box;border:1px solid #d9c4ca;border-radius:6px;padding:6px 8px;font:inherit;margin-bottom:6px}
+.sh-filter .fq:focus{outline:2px solid #32000c55;border-color:#32000c}
+.sh-filter .fl{max-height:220px;overflow-y:auto;border:1px solid #ecd9de;border-radius:6px;padding:4px 2px}
+.sh-filter .fl label{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;cursor:pointer}
+.sh-filter .fl label:hover{background:#f6e9ed}
+.sh-filter .fl label span{margin-left:auto;color:#8a6a72;font-size:12px}
+.sh-filter .fb{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+.sh-filter .fb button{border:1px solid #d9c4ca;background:#fff;border-radius:6px;padding:5px 14px;font:inherit;cursor:pointer;color:#4a2a32}
+.sh-filter .fb button.ok{background:#32000c;border-color:#32000c;color:#fff}
+.sh-filter .fb button:disabled{opacity:.45;cursor:default}
+.sh-fbar{flex:none;display:flex;align-items:center;gap:8px;padding:6px 12px;background:#fbf6f7;border-bottom:1px solid #e6d3d8}
+.sh-namebox{width:96px;height:28px;border:1px solid #d9c4ca;border-radius:8px;background:#fff;text-align:center;font:600 13px "Segoe UI",system-ui,sans-serif;color:#32000c}
+.sh-fx{font:italic 600 15px "Segoe UI",system-ui,serif;color:#8a5560;padding:0 2px}
+.sh-formula{flex:1;height:28px;border:1px solid #d9c4ca;border-radius:8px;background:#fff;padding:0 10px;font:13px "Segoe UI",system-ui,sans-serif;color:var(--ink)}
+.sh-namebox:focus,.sh-formula:focus,.sh-editor:focus{outline:2px solid #32000c55;outline-offset:0}
+.sh-tabbar{flex:none;display:flex;align-items:stretch;gap:2px;padding:0 8px;background:#f1e6e9;border-top:1px solid #e6d3d8;height:32px;user-select:none;-webkit-user-select:none}
+.sh-tablist{display:flex;align-items:flex-end;gap:2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;min-width:0;flex:0 1 auto;padding:0 4px}
+.sh-tablist::-webkit-scrollbar{display:none}
+.sh-tab{flex:none;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:1px solid transparent;border-bottom:0;background:transparent;color:#5a3a42;font:13px "Segoe UI",system-ui,sans-serif;padding:5px 14px;height:27px;border-radius:7px 7px 0 0;cursor:pointer}
+.sh-tab:hover{background:#e9dade}
+.sh-tab.on{background:#fff;color:#32000c;font-weight:600;border-color:#e6d3d8;box-shadow:inset 0 2px 0 #32000c}
+.sh-tablist.dragging .sh-tab{cursor:grabbing}
+.sh-tab.drop{box-shadow:inset 3px 0 0 #32000c}
+.sh-tabedit{flex:none;align-self:center;height:24px;margin:0 2px;border:1px solid #32000c;border-radius:5px;padding:0 8px;font:13px "Segoe UI",system-ui,sans-serif;outline:none;background:#fff;color:#1c2230}
+.sh-tabnav,.sh-tabadd{flex:none;align-self:center;border:0;background:transparent;color:#5a3a42;border-radius:6px;cursor:pointer;font-size:11px;width:26px;height:24px}
+.sh-tabadd{font-size:18px;line-height:1;width:28px}
+.sh-tabnav:hover:not(:disabled),.sh-tabadd:hover{background:#e3d0d5}
+.sh-tabnav:disabled{opacity:.35;cursor:default}
+.sh-wrap{flex:1;min-height:0;position:relative;background:#fff;overflow:hidden}
+.sh-scroll{position:absolute;inset:0;overflow:auto;background:#fff}
+#sh-canvas{position:sticky;top:0;left:0;display:block;user-select:none;-webkit-user-select:none;cursor:cell}
+#sh-spacer{position:absolute;left:0;top:0;pointer-events:none}
+.sh-editor{position:absolute;z-index:5;border:2px solid #32000c;background:#fff;padding:0 4px;font:13px "Segoe UI",system-ui,sans-serif;color:var(--ink);box-shadow:0 6px 18px -8px #32000c88;border-radius:0;box-sizing:border-box}
+.sh-editor[hidden]{display:none}
+.sh-keys{position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0;resize:none;border:0;padding:0}
+.sh-offline{position:absolute;inset:auto 0 40% 0;text-align:center;margin:0 auto;max-width:520px;padding:14px 18px;background:#fbf1f4;border:1px solid #e6d3d8;border-radius:12px;color:#5a3a42;z-index:6}
+.sh-offline[hidden]{display:none}
+body.sheets .status{background:linear-gradient(180deg,#f7eff1,#f1e6e9);border-top:1px solid #e6d3d8;color:#5a3a42}
+body.sheets #sheetsapp .status{display:flex}
+#sheetsapp .top,#sh-tools,.sh-fbar,#sheetsapp .status{user-select:none;-webkit-user-select:none}
+.sh-fbar input{user-select:text;-webkit-user-select:text}
+
+/* ===== Shared menu system (menu.js) ===== */
+.menubar{display:flex;align-items:center;gap:2px;padding:0 10px;height:32px;flex:none;background:#3f0613;border-bottom:1px solid #5a1024;user-select:none;-webkit-user-select:none;position:relative;z-index:30}
+body.pdf>.menubar,body.home>.menubar,body.sheets>.menubar{display:none}
+body:not(.pdf):not(.home) #pdfapp .menubar,body:not(.sheets) #sheetsapp .menubar{display:none}
+#pdfapp .menubar,#sheetsapp .menubar{display:flex}
+.menubar .mb-list{display:flex;gap:2px}
+.menubar .spacer{flex:1}
+.menubar .mb{background:transparent;border:0;color:#f1b3c5;font:13px "Segoe UI",system-ui,sans-serif;padding:5px 12px;border-radius:6px;cursor:pointer}
+.menubar .mb:hover,.menubar .mb.open{background:#ffffff1a;color:#fff}
+.menubar .mb-find kbd,.mi kbd,.cmdk-row kbd{font:11px "Segoe UI",system-ui,sans-serif;opacity:.65;margin-left:10px}
+.menubar.customizing .mb-list .mb{outline:1px dashed #f1b3c5aa;cursor:grab}
+.menubar .dragging,.tabs .dragging,.ribbon .group.dragging{opacity:.55;box-shadow:0 6px 20px #0006;position:relative;z-index:5}
+.mdrop{position:fixed;z-index:100;min-width:210px;max-height:calc(100vh - 80px);overflow-y:auto;background:#fffafb;border:1px solid #e3c4cd;border-radius:10px;box-shadow:0 14px 40px #32000c40;padding:5px;font:13px "Segoe UI",system-ui,sans-serif;animation:fadeIn .12s}
+.mdrop .mi{display:flex;justify-content:space-between;align-items:center;width:100%;border:0;background:transparent;text-align:left;padding:7px 10px;border-radius:6px;color:#32000c;cursor:pointer;font:inherit}
+.mdrop .mi:hover:not(:disabled){background:#32000c;color:#fff}
+.mdrop .mi:disabled{opacity:.4;cursor:default}
+.msep{height:1px;background:#32000c1a;margin:4px 6px}
+.selbar{position:fixed;z-index:90;display:flex;gap:2px;background:#32000c;border-radius:9px;padding:4px;box-shadow:0 8px 24px #0006;animation:fadeIn .1s}
+.selbar[hidden]{display:none}
+.selbar button{border:0;background:transparent;color:#fbd5df;font:600 12.5px "Segoe UI",system-ui,sans-serif;padding:5px 10px;border-radius:6px;cursor:pointer}
+.selbar button:hover{background:#ffffff22;color:#fff}
+.cmdk-bg{position:fixed;inset:0;z-index:120;background:#1f000755;display:flex;justify-content:center;align-items:flex-start;padding-top:14vh}
+.cmdk{width:min(560px,92vw);background:#fffafb;border-radius:14px;box-shadow:0 24px 70px #32000c66;overflow:hidden;font:14px "Segoe UI",system-ui,sans-serif}
+.cmdk-in{width:100%;box-sizing:border-box;border:0;border-bottom:1px solid #32000c1a;padding:15px 18px;font:15px "Segoe UI",system-ui,sans-serif;background:transparent;outline:0;color:#32000c}
+.cmdk-list{max-height:340px;overflow:auto;padding:6px}
+.cmdk-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:8px;color:#32000c;cursor:pointer}
+.cmdk-row small{margin-left:10px;opacity:.55}
+.cmdk-row.on{background:#32000c;color:#fff}.cmdk-row.off{opacity:.45}
+.cmdk-none{padding:16px;text-align:center;color:#32000c99}
+/* toolbar customizing */
+.custnote{display:flex;align-items:center;gap:10px;background:#fff1f5;border-bottom:1px solid #e3c4cd;padding:6px 14px;font:12.5px "Segoe UI",system-ui,sans-serif;color:#32000c;flex:none}
+.custnote span{flex:1}
+.ribbon.customizing .group{outline:1.5px dashed #c97b93;outline-offset:2px;border-radius:8px;position:relative;padding-top:14px}
+.ribbon .grip{display:none}
+.ribbon.customizing .grip{display:block;position:absolute;top:-1px;left:50%;transform:translateX(-50%);cursor:grab;color:#c97b93;font-size:12px;letter-spacing:-3px;line-height:11px;padding:0 6px;background:#fff1f5;border-radius:5px;user-select:none}
+.ribbon .gszs{display:none}
+.ribbon.customizing .gszs{display:flex;gap:2px;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid #e3c4cd;border-radius:6px;padding:1px;z-index:3}
+.ribbon.customizing{padding-bottom:30px;row-gap:12px}
+.gsz{border:0;background:transparent;font:600 10px "Segoe UI",system-ui,sans-serif;color:#32000c;padding:1px 5px;border-radius:4px;cursor:pointer}
+.gsz.on{background:#32000c;color:#fff}
+.ribbon [data-hide]{display:none!important}
+.ribbon.customizing [data-hide]{display:inline-flex!important;opacity:.3;text-decoration:line-through}
+.ribbon.customizing [data-bid]{cursor:pointer}
+.tabs.customizing button{outline:1px dashed #c97b93;cursor:grab}
+.menubar kbd,.mi kbd,.cmdk-row kbd{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;color:inherit}
+.mi kbd:empty,.cmdk-row kbd:empty{display:none}
+.ribbon.customizing{padding-bottom:32px!important;row-gap:14px;position:relative;z-index:25}
+.ribbon .group.gs-s{zoom:.78}.ribbon .group.gs-l{zoom:1.3}
+
+/* Smooth resize: the toolbar scrolls sideways instead of wrapping, so the page never jumps when the window changes size */
+#ribbon,#pdf-tools{flex-wrap:nowrap!important;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+#ribbon>*,#pdf-tools>*{flex:none}
+.desk{scrollbar-gutter:stable;contain:layout}
+#side{transition:none}
+#ribbon.customizing{flex-wrap:wrap!important;overflow:visible}
+.keytip{position:fixed;z-index:9999;min-width:20px;height:20px;padding:0 5px;background:#32000c;color:#fff;font:700 12px/20px system-ui;text-align:center;border-radius:4px;border:1px solid #fff;box-shadow:0 2px 6px #0005;pointer-events:none}
+.mdrop .mi.kb{background:#f3dde1}
+.helpdoc{max-height:60vh;overflow:auto;font-size:13.5px;line-height:1.5}.helpdoc h4{margin:14px 0 4px;color:#32000c}.helpdoc ul{margin:0;padding-left:20px}
+.dropmark{position:fixed;width:4px;background:#e0527a;border-radius:2px;z-index:9998;pointer-events:none;box-shadow:0 0 0 2px #e0527a44}
+.dropmark[hidden]{display:none}
+body.is-dragging{cursor:grabbing!important;user-select:none}
+.menubar .dragging,.tabs .dragging,.ribbon .group.dragging{pointer-events:none;transition:none}
+.menubar .mb-list .mb,.tabs button,.ribbon .group{will-change:transform}
+/* moving a node in the DOM restarts CSS animations (looked like a reload): switch them off while customizing */
+.customizing .group,.customizing .mb,.tabs button,.menubar .mb{animation:none!important}
+/* S / M / L: the group grows or shrinks smoothly and its neighbours slide along with it */
+.ribbon .group{zoom:1}
+.ribbon .group.dragging{transition:none}
+/* customize mode: leave room for the S/M/L chips under each group so rows never overlap */
+#ribbon.customizing,.ribbon.customizing{row-gap:40px!important;padding-top:16px!important;padding-bottom:40px!important}
+/* nothing from the menu system may ever print or export */
+@media print{.menubar,.selbar,.cmdk-bg,.keytip,.dropmark,.mdrop,#modal-bg{display:none!important}}
+
+/* welcome tour */
+.tour{position:fixed;inset:0;z-index:9990}
+.tour-hole{position:fixed;border-radius:12px;box-shadow:0 0 0 9999px #12020899,0 0 0 2px #f3b6c8,0 0 28px 2px #f3b6c866;transition:left .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1),width .45s cubic-bezier(.2,.8,.2,1),height .45s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.tour-card{position:fixed;background:#fff;color:#2b1a1f;border-radius:16px;padding:18px 20px;box-shadow:0 24px 60px #000a;animation:tourIn .35s cubic-bezier(.2,.8,.2,1);transition:left .45s cubic-bezier(.2,.8,.2,1),top .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes tourIn{from{opacity:0}}
+.tour-card small{color:#9a6b78;letter-spacing:.08em;text-transform:uppercase;font-size:11px}
+.tour-card h4{margin:4px 0 6px;font-size:18px;color:#32000c}
+.tour-card p{margin:0 0 14px;line-height:1.5;font-size:14px}
+.tour-btns{display:flex;align-items:center;gap:8px}.tour-btns span{flex:1}
+.tour-btns button{font:inherit;font-size:14px;border-radius:10px;padding:8px 16px;border:1px solid #e3c4cd;background:#fff;color:#32000c;cursor:pointer}
+.tour-btns .tour-next{background:#32000c;color:#fff;border-color:#32000c}
+.tour-btns .tour-skip{border:0;background:none;color:#8a6a73;padding-left:0}
+@media print{.tour{display:none!important}}
+
+.sh-dd{background:#fff;border:1px solid #d9c4ca;border-radius:8px;box-shadow:0 10px 28px -10px #32000c88;padding:4px;font:13px "Segoe UI",system-ui,sans-serif;color:#4a2a32}
+.sh-dd .dd-item{padding:5px 10px;border-radius:5px;cursor:pointer}
+.sh-dd .dd-item:hover{background:#f3e4e8}
+#sh-print{display:none}
+@media print{
+  body.printing-sheet > *:not(#sh-print){display:none !important}
+  body.printing-sheet #sh-print{display:block;color:#000;font:11pt "Segoe UI",Arial,sans-serif}
+  body.printing-sheet{background:#fff !important}
+  #sh-print h4{margin:0 0 8px;font-size:12pt}
+  #sh-print table{border-collapse:collapse;width:auto}
+  #sh-print td{border:1px solid #bbb;padding:2px 6px;white-space:pre-wrap;vertical-align:top}
+}
+.sh-dlg [hidden]{display:none !important}
