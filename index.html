@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MTRX Office: Writer and PDF for Windows</title>
+<meta name="description" content="MTRX Office: fast, lightweight apps for Windows. Writer saves real Word (.docx) files, and the PDF editor changes PDFs in place. Works offline and updates itself.">
+<meta property="og:title" content="MTRX Office">
+<meta property="og:description" content="Writer and PDF for Windows. Real files, offline, self-updating.">
+<style>
+@font-face{font-family:"Cormorant Garamond";font-weight:500;font-style:normal;font-display:swap;src:url(fonts/cormorant-500.woff2) format("woff2")}
+:root{
+  --deep:#32000c;--deep2:#1f0007;--wine:#6a1230;--pink1:#f3b6c8;--pink2:#d98aa4;--blush:#ffe0e9;
+  --ink:#f6e3ea;--mute:#d9b9c4;--line:#ffffff1f;--card:#ffffff0d;--card2:#ffffff17;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Segoe UI",system-ui,-apple-system,sans-serif;--ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;color:var(--ink);font:16px/1.6 var(--sans);background:var(--deep2);overflow-x:hidden}
+a{color:inherit}
+[hidden]{display:none!important}
+.wrap{width:min(1120px,100% - 40px);margin:0 auto}
+section{padding:96px 0;position:relative}
+h2{margin:0 0 12px;font:500 clamp(32px,5vw,52px)/1.08 var(--serif);letter-spacing:.01em}
+h3{margin:0 0 6px;font-size:18px}
+.eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--pink1);margin-bottom:14px}
+.lead{color:var(--mute);max-width:40rem;margin:0 0 40px;font-size:18px}
+.nowinnote{display:none;margin:14px 0 0;max-width:46ch;color:var(--mute);font-size:14px;line-height:1.5}
+html.nowin .nowinnote{display:block}
+@media(hover:none){.kbhint{display:none}}
+.grad{display:inline-block;line-height:1.25;padding:.04em .06em .22em;margin:-.04em 0 -.22em;-webkit-box-decoration-break:clone;box-decoration-break:clone;background:linear-gradient(100deg,#c97b93,#f3b6c8 40%,#ffe0e9 70%,#c97b93);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* nav */
+nav.top{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s,backdrop-filter .3s}
+nav.top.solid{background:#1f0007d9;backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.logo{font:500 24px var(--serif);letter-spacing:.22em;text-decoration:none}
+nav .links{display:flex;gap:22px;margin-left:auto;font-size:14px}
+nav .links a{text-decoration:none;color:var(--mute);transition:color .2s}
+nav .links a:hover{color:#fff}
+nav .links a.btn,nav .links a.btn:hover{color:var(--deep)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:12px;font-weight:600;font-size:16px;text-decoration:none;color:var(--deep);background:linear-gradient(135deg,var(--pink1),var(--pink2));box-shadow:0 10px 30px #0006;transition:transform .2s var(--ease),box-shadow .2s;border:0;cursor:pointer;font-family:inherit}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px #0008}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid #ffffff40;box-shadow:none}
+.btn.ghost:hover{background:var(--card2)}
+.btn.sm{padding:9px 18px;font-size:14px;border-radius:10px}
+@media(max-width:760px){nav .links a:not(.btn){display:none}}
+
+/* hero */
+.hero{padding:150px 0 70px;background:radial-gradient(120% 90% at 20% 0%,var(--wine) 0%,var(--deep) 55%,var(--deep2) 100%);overflow:hidden}
+.hero::after{content:"";position:absolute;width:620px;height:620px;right:-160px;top:-140px;border-radius:50%;background:radial-gradient(circle,#f3b6c833,transparent 65%);animation:float 14s ease-in-out infinite;pointer-events:none}
+@keyframes float{50%{transform:translate(-40px,50px) scale(1.08)}}
+.hero h1{margin:0;font:500 clamp(44px,8vw,92px)/.98 var(--serif);letter-spacing:.01em;max-width:13ch}
+.hero p.lead{margin-top:22px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:20px;font-size:13px;color:var(--mute)}
+.meta b{color:#fff;font-weight:600}
+.meta span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:#7be3a0;box-shadow:0 0 0 3px #7be3a022}
+
+/* demo window */
+.stage{margin-top:64px}
+.win{border-radius:14px;overflow:hidden;background:#1a0509;border:1px solid var(--line);box-shadow:0 40px 90px -20px #000a,0 0 0 1px #0004}
+.win .bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#2a0a12;border-bottom:1px solid var(--line);font-size:12px;color:var(--mute)}
+.win .bar i{width:11px;height:11px;border-radius:50%;background:#ffffff26}
+.win .bar span{margin:0 auto;letter-spacing:.08em}
+.win iframe{display:block;width:100%;height:clamp(420px,62vh,640px);border:0;background:#fff}
+.hint{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:center;margin:18px 0 0;color:var(--mute);font-size:13px}
+kbd{font:600 11px var(--sans);padding:2px 7px;border-radius:5px;background:var(--card2);border:1px solid var(--line);color:#fff}
+
+/* apps */
+.tabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.tabs button{font:inherit;color:var(--mute);background:var(--card);border:1px solid var(--line);padding:10px 20px;border-radius:999px;cursor:pointer;transition:all .25s var(--ease)}
+.tabs button:hover{color:#fff}
+.tabs button.on{background:linear-gradient(135deg,var(--pink1),var(--pink2));color:var(--deep);border-color:transparent;font-weight:600}
+.panel{display:none;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center}
+.panel.on{display:grid;animation:rise .5s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.panel h3{font:500 36px/1.1 var(--serif);margin-bottom:12px}
+.panel ul{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+.panel li{display:flex;gap:12px;color:var(--ink)}
+.panel li::before{content:"";flex:none;width:18px;height:18px;margin-top:4px;border-radius:50%;background:var(--pink1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2332000c' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+.shot{border-radius:14px;background:var(--card);border:1px solid var(--line);padding:22px;min-height:300px;display:flex;flex-direction:column;gap:12px;box-shadow:0 30px 60px -30px #000a}
+/* mini illustrations built in CSS so they stay crisp */
+.sheet{background:#fff;border-radius:6px;padding:26px 28px;color:#222;flex:1;box-shadow:0 8px 24px #0004;display:flex;flex-direction:column;gap:9px}
+.sheet i{display:block;height:8px;border-radius:4px;background:#e6dfe1}
+.sheet i.h{height:14px;width:55%;background:#32000c;margin-bottom:6px}
+.sheet i.hl{background:#ffe600}
+.sheet i.s{width:70%}.sheet i.xs{width:40%}
+.sheet .cite{font:600 12px var(--sans);color:#32000c;background:#f7eaed;padding:4px 8px;border-radius:5px;align-self:flex-start}
+.tool{display:flex;gap:6px}
+.tool b{width:26px;height:26px;border-radius:7px;background:var(--card2);display:grid;place-items:center;font-size:12px;color:var(--pink1)}
+.tool b.on{background:var(--pink1);color:var(--deep)}
+.card2{padding:22px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.soon{opacity:.75}
+.badge{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid #ffffff40;color:var(--mute);margin-left:8px;vertical-align:middle}
+@media(max-width:860px){.panel.on{grid-template-columns:1fr}}
+
+/* features */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.feat{padding:26px;border-radius:16px;background:var(--card);border:1px solid var(--line);transition:transform .3s var(--ease),background .3s,border-color .3s}
+.feat:hover{transform:translateY(-4px);background:var(--card2);border-color:#f3b6c855}
+.feat svg{width:30px;height:30px;color:var(--pink1);margin-bottom:14px}
+.feat p{margin:0;color:var(--mute);font-size:15px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;counter-reset:s}
+.step{position:relative;padding:28px 26px 26px;border-radius:16px;background:linear-gradient(160deg,#ffffff12,#ffffff05);border:1px solid var(--line)}
+.step::before{counter-increment:s;content:counter(s);display:block;font:500 56px/1 var(--serif);color:var(--pink2);margin-bottom:10px}
+.step p{margin:0;color:var(--mute)}
+
+/* platforms */
+.plat{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.plat .card2{display:flex;flex-direction:column;gap:10px}
+.plat .on{border-color:#f3b6c870;background:linear-gradient(160deg,#f3b6c820,#ffffff08)}
+.plat h3{display:flex;align-items:center;gap:10px}
+.plat p{margin:0;color:var(--mute);font-size:15px}
+
+/* changelog */
+.log{display:grid;gap:12px}
+.rel{padding:20px 24px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.rel header{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.rel b{font-size:17px}
+.rel time{font-size:13px;color:var(--mute)}
+.rel pre{margin:10px 0 0;white-space:pre-wrap;font:14px/1.6 var(--sans);color:var(--mute)}
+.rel .tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:var(--pink1);color:var(--deep);font-weight:700}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:4px 0}
+summary{cursor:pointer;list-style:none;padding:18px 36px 18px 0;font-size:18px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:26px;color:var(--pink1);transition:transform .3s var(--ease)}
+details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+details p{margin:0 0 18px;color:var(--mute);max-width:46rem}
+
+/* final cta + footer */
+.final{text-align:center;background:radial-gradient(80% 120% at 50% 100%,var(--wine),transparent 70%)}
+.final h2{max-width:16ch;margin-inline:auto}
+.final .cta{justify-content:center}
+footer{padding:40px 0 60px;border-top:1px solid var(--line);color:var(--mute);font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+footer a{text-decoration:none}footer a:hover{color:#fff}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+
+/* download started message */
+.toast{position:fixed;left:50%;bottom:28px;z-index:80;width:min(460px,100% - 32px);transform:translate(-50%,30px);opacity:0;pointer-events:none;padding:20px 22px;border-radius:16px;background:#2a0a12f2;backdrop-filter:blur(14px);border:1px solid #f3b6c855;box-shadow:0 24px 60px #000a;transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast b{display:block;font-size:17px;margin-bottom:6px}
+.toast ol{margin:8px 0 10px;padding-left:20px;color:var(--mute);font-size:14px}
+.toast a{color:var(--pink1)}
+.toast button{position:absolute;right:12px;top:10px;background:none;border:0;color:var(--mute);font-size:22px;cursor:pointer;line-height:1}
+</style>
+</head>
+<body>
+
+<nav class="top" id="nav"><div class="wrap">
+  <a class="logo grad" href="#top">MTRX</a>
+  <div class="links">
+    <a href="#demo">Try it</a><a href="#apps">Apps</a><a href="#features">Features</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a class="btn sm" href="#download">Download</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="eyebrow">MTRX Office &middot; for Windows</div>
+  <h1>Office apps that <span class="grad">just work.</span></h1>
+  <p class="lead">Fast, light apps for writing and PDFs. They save real Word and PDF files, work with no internet, and update themselves. Built with students in mind.</p>
+  <div class="cta">
+    <a class="btn" id="dl" href="https://github.com/mtrxinc-cloud/mtrx-office/releases/latest/download/MTRX-Office-Setup.exe" download>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+      Download for Windows</a>
+    <a class="btn ghost" href="#demo">Try Writer in your browser</a>
+  </div>
+  <p class="nowinnote">MTRX Office is a Windows app. Open this page on your Windows PC to download it, or send yourself the link now.</p>
+  <div class="meta">
+    <span><i class="dot"></i><b id="ver">Latest version</b></span>
+    <span>Windows 10 / 11, 64-bit</span>
+    <span>Download size: <b class="dlsize">about 4 MB</b></span>
+    <span id="countwrap" hidden><b id="count">0</b> downloads</span>
+  </div>
+
+  <div class="stage rv" id="demo">
+    <div class="win">
+      <div class="bar"><i></i><i></i><i></i><span>MTRX Office: live demo</span></div>
+      <iframe id="demoframe" title="MTRX Office live demo" data-src="demo/index.html" loading="lazy"></iframe>
+    </div>
+    <div class="hint">
+      <span>This is the real app running in your browser.</span>
+      <span class="kbhint">Press <kbd>Alt</kbd> for key tips</span>
+      <span class="kbhint"><kbd>Ctrl</kbd> + <kbd>K</kbd> to search commands</span>
+      <span>Saving and PDF export need the desktop app</span>
+    </div>
+  </div>
+</div></header>
+
+<section id="apps"><div class="wrap">
+  <div class="eyebrow rv">The apps</div>
+  <h2 class="rv">Two apps now. More on the way.</h2>
+  <p class="lead rv">Writer and PDF are one install. Sheets and Slides come next.</p>
+  <div class="tabs rv" role="tablist">
+    <button class="on" data-p="w" role="tab">Writer</button>
+    <button data-p="p" role="tab">PDF</button>
+    <button data-p="s" role="tab">Sheets &amp; Slides</button>
+  </div>
+
+  <div class="panel on rv" id="p-w">
+    <div>
+      <h3>Writer</h3>
+      <p class="lead" style="margin:0">A word processor that saves <b>real .docx files</b>. Your lecturer opens them in Word and never knows the difference.</p>
+      <ul>
+        <li>Tables, pictures with text wrap, footnotes, page setup, headers and footers</li>
+        <li>Citations and a bibliography in APA, Harvard or MLA</li>
+        <li>Find, outline panel, ruler, zoom, export to PDF</li>
+        <li>Rearrange the toolbar and menus to suit you</li>
+      </ul>
+    </div>
+    <div class="shot"><div class="tool"><b class="on">B</b><b>I</b><b>U</b><b>&#8801;</b></div>
+      <div class="sheet"><i class="h"></i><i></i><i></i><i class="s"></i><span class="cite">(Banda, 2024, p. 45)</span><i></i><i class="xs"></i></div></div>
+  </div>
+
+  <div class="panel rv" id="p-p">
+    <div>
+      <h3>PDF</h3>
+      <p class="lead" style="margin:0">Read, mark up and <b>edit the PDF itself</b>. Changes are made in the file, not by rebuilding it from text, so the layout stays exactly as it was.</p>
+      <ul>
+        <li>Select and copy text. Highlight, draw, add text, images or a signature</li>
+        <li>Edit the PDF's own text in place</li>
+        <li>Merge, split, rotate and delete pages</li>
+        <li>Turn highlights into flashcards for revision</li>
+      </ul>
+    </div>
+    <div class="shot"><div class="tool"><b>V</b><b>E</b><b>T</b><b class="on">H</b><b>D</b></div>
+      <div class="sheet"><i class="h"></i><i></i><i class="hl"></i><i class="hl s"></i><i></i><i class="s"></i><i class="xs"></i></div></div>
+  </div>
+
+  <div class="panel rv" id="p-s">
+    <div>
+      <h3>Sheets <span class="badge">Coming soon</span></h3>
+      <p class="lead" style="margin:0">Spreadsheets that save real <b>.xlsx</b> files, for lab data, budgets and stats homework.</p>
+      <h3 style="margin-top:26px">Slides <span class="badge">Coming soon</span></h3>
+      <p class="lead" style="margin:0">Presentations that save real <b>.pptx</b> files and export to PDF.</p>
+    </div>
+    <div class="shot soon"><div class="card2"><b>Planned next</b><p style="margin:8px 0 0;color:var(--mute)">Same menus, same shortcuts, same look. Learn one app and you already know the rest.</p></div></div>
+  </div>
+</div></section>
+
+<section id="features" style="background:linear-gradient(180deg,transparent,#ffffff06,transparent)"><div class="wrap">
+  <div class="eyebrow rv">Why MTRX</div>
+  <h2 class="rv">Small, quick and honest about your files.</h2>
+  <p class="lead rv">No lock-in, no mystery formats. What you save is what everyone else can open.</p>
+  <div class="grid">
+    <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg><h3>Real files</h3><p>Writer saves genuine .docx. The PDF app edits the PDF in place.</p></div>
+    <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a10 10 0 0114 0"/><path d="M8.5 16a5 5 0 017 0"/><path d="M12 20h.01"/><path d="M3 3l18 18"/></svg><h3>Works offline</h3><p>No internet needed to write, mark up or save. Ideal for patchy campus Wi-Fi.</p></div>
+    <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg><h3>Updates itself</h3><p>New versions arrive automatically and are checked before they install.</p></div>
+    <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 012-2h13v17H6a2 2 0 00-2 2"/><path d="M8 7h7M8 11h5"/></svg><h3>References built in</h3><p>Add sources once, insert citations, and build the bibliography in APA, Harvard or MLA.</p></div>
+    <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h14v12"/></svg><h3>Flashcards from PDFs</h3><p>Highlight a passage in a PDF and turn it into a revision card in one click.</p></div>
+    <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h16"/><circle cx="18" cy="12" r="2.5"/></svg><h3>Make it yours</h3><p>Drag menus and toolbar groups, resize them, hide what you don't use. Saved for you.</p></div>
+    <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><h3>Find any command</h3><p>Press Ctrl+K and type what you want. Press Alt for Word-style key tips.</p></div>
+    <div class="feat rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><h3>Light and fast</h3><p>A small download that opens in a moment, even on an older laptop.</p></div>
+  </div>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <div class="eyebrow rv">Getting started</div>
+  <h2 class="rv">Up and running in a minute.</h2>
+  <div class="steps" style="margin-top:34px">
+    <div class="step rv"><h3>Download</h3><p>Get the installer. It is one file and installs in a few clicks.</p></div>
+    <div class="step rv"><h3>Open or start</h3><p>Open a .docx or PDF, or start a blank page from the home screen.</p></div>
+    <div class="step rv"><h3>Keep your files</h3><p>Everything is saved as standard files you can use anywhere.</p></div>
+  </div>
+</div></section>
+
+<section id="download" style="background:linear-gradient(180deg,transparent,#ffffff06,transparent)"><div class="wrap">
+  <div class="eyebrow rv">Download</div>
+  <h2 class="rv">Pick your platform.</h2>
+  <p class="lead rv">Windows is ready today. Other platforms are planned.</p>
+  <div class="plat">
+    <div class="card2 on rv">
+      <h3>Windows <span class="badge" style="color:#7be3a0;border-color:#7be3a055">Available</span></h3>
+      <p>Windows 10 and 11, 64-bit. Includes Writer and the PDF app.</p>
+      <a class="btn" id="dl2" href="https://github.com/mtrxinc-cloud/mtrx-office/releases/latest/download/MTRX-Office-Setup.exe" download>Download installer</a>
+      <p id="ver2" style="font-size:13px"></p>
+      <p style="font-size:13px;margin-top:-6px">Download size: <b class="dlsize">about 4 MB</b></p>
+      <p style="font-size:13px;color:var(--mute);border-top:1px solid var(--line);padding-top:10px">Windows may say the file is "not commonly downloaded" because MTRX Office is new. Click <b>More info</b>, then <b>Run anyway</b>.</p>
+    </div>
+    <div class="card2 soon rv"><h3>Linux <span class="badge">Planned</span></h3><p>Not yet. We are focusing on getting Windows right first.</p></div>
+    <div class="card2 soon rv"><h3>macOS <span class="badge">Planned</span></h3><p>Not yet. Follow the releases on GitHub to hear when it arrives.</p></div>
+  </div>
+</div></section>
+
+<section id="changes"><div class="wrap">
+  <div class="eyebrow rv">What's new</div>
+  <h2 class="rv">Recent releases.</h2>
+  <div class="log" id="log" style="margin-top:30px"><div class="rel"><pre>Loading the latest releases...</pre></div></div>
+</div></section>
+
+<section id="faq" style="background:linear-gradient(180deg,transparent,#ffffff06,transparent)"><div class="wrap" style="max-width:820px">
+  <div class="eyebrow rv">Questions</div>
+  <h2 class="rv">Good to know.</h2>
+  <div class="rv" style="margin-top:26px">
+    <details><summary>Will my files open in Microsoft Word?</summary><p>Yes. Writer saves standard .docx files, and the PDF app edits the PDF itself, so other programs open them normally.</p></details>
+    <details><summary>What data do you collect?</summary><p>None. MTRX Office has no accounts, no tracking and no analytics. Your documents stay on your computer and are never uploaded. The only network use is checking for and downloading updates.</p></details>
+    <details><summary>Do I need internet?</summary><p>Only to download the app and to receive updates. Writing, editing and saving work fully offline.</p></details>
+    <details><summary>How do updates work?</summary><p>The app checks for new versions and installs signed updates. You always keep your own files and settings.</p></details>
+    <details><summary>Can I make the toolbar and menus my own?</summary><p>Yes. Open View, then Customize toolbar. Drag menus, tabs and toolbar groups into the order you like, change their size, and hide buttons. Your choices are saved.</p></details>
+    <details><summary>Is it free?</summary><p>You can download and try it now. Pricing will be announced once the apps are more complete.</p></details>
+    <details><summary>Where do I get help?</summary><p>Open Help in the app for a quick guide and shortcuts. Support and feedback with an MTRX account are coming.</p></details>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <div class="eyebrow rv">Contact</div>
+  <h2 class="rv">Talk to us.</h2>
+  <p class="lead rv">Questions, ideas or something not working? Send a message or give us a call.</p>
+  <div class="plat">
+    <a class="card2 rv" href="mailto:info@mtrxco.com" style="text-decoration:none">
+      <h3>Email</h3><p>info@mtrxco.com</p><span class="btn sm" style="align-self:flex-start">Send an email</span>
+    </a>
+    <a class="card2 rv" href="tel:+260769865602" style="text-decoration:none">
+      <h3>Phone</h3><p>+260 769 865 602</p><span class="btn sm ghost" style="align-self:flex-start">Call us</span>
+    </a>
+    <a class="card2 rv" href="https://wa.me/260769865602" target="_blank" rel="noopener" style="text-decoration:none">
+      <h3>WhatsApp</h3><p>Message us on +260 769 865 602</p><span class="btn sm ghost" style="align-self:flex-start">Open WhatsApp</span>
+    </a>
+  </div>
+</div></section>
+
+<section class="final"><div class="wrap">
+  <h2 class="rv">Start writing in a minute.</h2>
+  <p class="lead rv" style="margin-inline:auto">Download MTRX Office for Windows and see how light office work can feel.</p>
+  <div class="cta rv"><a class="btn" id="dl3" href="https://github.com/mtrxinc-cloud/mtrx-office/releases/latest/download/MTRX-Office-Setup.exe" download>Download for Windows</a></div>
+</div></section>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <button id="toast-x" aria-label="Close">&times;</button>
+  <b>Your download has started</b>
+  <ol><li>Open the installer when it finishes. If Windows says it is not commonly downloaded, click <b>More info</b>, then <b>Run anyway</b>.</li><li>Follow the steps. It takes under a minute.</li><li>Open MTRX Office from the Start menu.</li></ol>
+  <a id="toast-retry" href="#">Did not start? Click here.</a>
+</div>
+
+<footer><div class="wrap">
+  <span>MTRXCO&trade; &middot; 2026</span>
+  <span><a href="#contact">Contact</a> &middot; <a href="mailto:info@mtrxco.com">info@mtrxco.com</a> &middot; <a href="https://github.com/mtrxinc-cloud/mtrx-office/releases">All releases</a></span>
+</div></footer>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
+
+  // nav gets a solid background after scrolling
+  var nav = $('#nav');
+  var onScroll = function () { nav.classList.toggle('solid', scrollY > 30); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // reveal on scroll
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .12 });
+    $$('.rv').forEach(function (el, i) { el.style.transitionDelay = (i % 4) * 60 + 'ms'; io.observe(el); });
+  } else { $$('.rv').forEach(function (el) { el.classList.add('in'); }); }
+
+  // app tabs
+  $$('.tabs button').forEach(function (b) {
+    b.onclick = function () {
+      $$('.tabs button').forEach(function (o) { o.classList.toggle('on', o === b); });
+      $$('.panel').forEach(function (p) { p.classList.remove('on'); });
+      var p = $('#p-' + b.dataset.p); p.classList.add('on', 'in');
+    };
+  });
+
+  // live demo loads only when it scrolls into view (keeps the first paint fast)
+  var f = $('#demoframe');
+  if (f) {
+    var load = function () { if (!f.src) f.src = f.dataset.src; };
+    if ('IntersectionObserver' in window) { var d = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { load(); d.disconnect(); } }, { rootMargin: '300px' }); d.observe(f); } else load();
+
+    // When the demo scrolls out of view, give up focus so the keyboard and the text caret go back to the page
+    // (otherwise the editor keeps focus and the caret, or the OS cursor indicator, stays stuck on screen).
+    var release = function () {
+      try {
+        var doc = f.contentDocument;
+        if (doc && doc.activeElement && doc.activeElement !== doc.body) doc.activeElement.blur();
+        f.blur(); window.focus();
+      } catch (e) {}
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { if (!es[0].isIntersecting) release(); }, { threshold: 0 }).observe(f);
+    }
+    // Clicking anywhere outside the demo also hands the keyboard back to the page.
+    document.addEventListener('pointerdown', function (e) { if (!e.target.closest('.win')) release(); });
+  }
+
+
+  // Not on Windows (phone, tablet, Mac, Linux)? The installer is useless here, so the buttons send the link to a PC instead.
+  var onWindows = /Windows NT/i.test(navigator.userAgent);
+  if (!onWindows) {
+    document.documentElement.classList.add('nowin');
+    var PAGE = location.href.split('#')[0];
+    var relabel = function (a, text) { var n = a.lastChild; while (n && !(n.nodeType === 3 && n.nodeValue.trim())) n = n.previousSibling; if (n) n.nodeValue = text; };
+    ['dl', 'dl2', 'dl3'].forEach(function (id) {
+      var a = document.getElementById(id); if (!a) return;
+      a.removeAttribute('download'); a.href = PAGE; relabel(a, 'Send the link to my PC');
+      a.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        var msg = 'Download MTRX Office on your Windows PC:';
+        if (navigator.share) { navigator.share({ title: 'MTRX Office for Windows', text: msg, url: PAGE }).catch(function () {}); }
+        else { location.href = 'mailto:?subject=' + encodeURIComponent('MTRX Office for Windows') + '&body=' + encodeURIComponent(msg + '\n' + PAGE); }
+      }, true);
+    });
+  }
+
+  // start the download in the background so the visitor never leaves this page, then show what to do next
+  var toast = $('#toast'), tt, downloadReady = true; // flipped to false if GitHub says the newest release has no installer
+  var URL_EXE = $('#dl').href;
+  $('#toast-retry').href = URL_EXE;
+  $('#toast-x').onclick = function () { toast.classList.remove('on'); };
+  ['dl', 'dl2', 'dl3'].forEach(function (id) {
+    var a = document.getElementById(id); if (!a) return;
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (!downloadReady) { // fall back to the releases page instead of promising a download that is not there
+        toast.querySelector('b').textContent = 'The new version is still being prepared';
+        toast.querySelector('ol').innerHTML = '<li>Please try again in a few minutes, or pick a version from <a href="https://github.com/mtrxinc-cloud/mtrx-office/releases" target="_blank" rel="noopener">the releases page</a>.</li>';
+        toast.classList.add('on'); return;
+      }
+      var fr = document.createElement('iframe'); fr.hidden = true; fr.src = URL_EXE; document.body.appendChild(fr);
+      setTimeout(function () { fr.remove(); }, 60000);
+      toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('on'); }, 20000);
+    });
+  });
+
+  // version, download count and changelog straight from GitHub
+  var API = 'https://api.github.com/repos/mtrxinc-cloud/mtrx-office/releases?per_page=100';
+  var fixName = function (t) { return String(t).replace(/MTRX Writer/g, 'MTRX Office'); };
+  var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  // Cache for 10 minutes so busy networks (one shared IP) do not run into GitHub's request limit.
+  var getReleases = function () {
+    try { var c = JSON.parse(sessionStorage.getItem('mtrx.rel') || 'null'); if (c && Date.now() - c.t < 600000) return Promise.resolve(c.d); } catch (e) {}
+    return fetch(API).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+      if (d) { try { sessionStorage.setItem('mtrx.rel', JSON.stringify({ t: Date.now(), d: d })); } catch (e) {} }
+      return d;
+    });
+  };
+  var hasExe = function (rel) { return (rel.assets || []).some(function (a) { return a.name === 'MTRX-Office-Setup.exe'; }); };
+  getReleases().then(function (list) {
+    list = (list || []).filter(function (r) { return !r.draft && !r.prerelease; });
+    if (!list.length) { $('#log').innerHTML = '<div class="rel"><pre>Release notes will appear here.</pre></div>'; return; }
+    // the newest release that actually has the installer (a build in progress or a failed one is skipped)
+    var latest = list.filter(hasExe)[0] || list[0]; downloadReady = hasExe(latest);
+    var v ='Version ' + String(latest.tag_name).replace(/^v/, '');
+    $('#ver').textContent = v; $('#ver2').textContent = v + ' · released ' + new Date(latest.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    (latest.assets || []).forEach(function (a) { if (a.name === 'MTRX-Office-Setup.exe') { var mb = (a.size / 1048576).toFixed(1) + ' MB'; $$('.dlsize').forEach(function (e) { e.textContent = mb; }); } });
+    var n = 0; list.forEach(function (rel) { (rel.assets || []).forEach(function (a) { if ((a.name === 'MTRX-Office-Setup.exe' || a.name === 'MTRX-Writer-Setup.exe')) n += a.download_count; }); });
+    if (n > 0) {
+      $('#countwrap').hidden = false; var el = $('#count'), t0 = performance.now();
+      (function tick(t) { var k = Math.min(1, (t - t0) / 1200); el.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))).toLocaleString(); if (k < 1) requestAnimationFrame(tick); })(t0);
+    }
+    $('#log').innerHTML = list.slice(0, 5).map(function (r, i) {
+      var body = (r.body || '').trim() || 'Improvements and fixes.';
+      return '<div class="rel"><header><b>' + esc(fixName(r.name || r.tag_name)) + '</b>' + (i === 0 ? '<span class="tag">Latest</span>' : '') + '<time>' + new Date(r.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) + '</time></header><pre>' + esc(fixName(body.slice(0, 600))) + '</pre></div>';
+    }).join('');
+  }).catch(function () { $('#log').innerHTML = '<div class="rel"><pre>Could not load release notes. See all releases on GitHub.</pre></div>'; });
+})();
+</script>
+</body>
+</html>
